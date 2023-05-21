@@ -1,7 +1,8 @@
-package capstone.project.mushymatch
+package capstone.project.mushymatch.view.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import capstone.project.mushymatch.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
