@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">MushyMatch</string>
+    <string name="description">Jamur enoki (Flammulina velutipes) adalah sejenis jamur yang memiliki batang panjang dan tipis dengan tudung kecil berwarna putih. Jamur enoki memiliki tekstur renyah dan rasa manis. Biasanya, mereka tumbuh dalam kelompok rapat dan memiliki akar berwarna putih yang dapat dimakan. Jamur enoki sering digunakan dalam masakan Asia, seperti sup dan tumisan, dan mereka juga dapat dijadikan bahan dalam salad atau campuran mie. Selain itu, jamur enoki diketahui memiliki beberapa manfaat kesehatan, seperti mengandung serat, vitamin B, dan mineral.</string>
+    <string name="edible">Edible</string>
+    <string name="mushroom_name">Mushroom Name</string>
+    <string name="scientific_name">Scientific Name</string>
+    <string name="desc">Description</string>
+    <string name="habitat">Habitat</string>
+    <string name="cooking_recipes">Cooking recipes</string>
+    <string name="how_to_cultivate">How to cultivate ?</string>
+    <string name="next_page">Next page</string>
+    <string name="more">More</string>
+    <string name="mushroom_image">mushroom_image</string>
+    <string name="mushroom_identification_results">mushroom identification results</string>
+    <string name="accuracy">Accuracy</string>
+    <string name="more_information">More Information</string>
+    <string name="retake_mushroom_picture">retake mushroom picture</string>
+    <string name="warning">WARNING</string>
+    <string name="attention">Attention!</string>
+    <string name="warning_msg">It can happen that the app confuses edible and poisonous mushrooms. For this reason, if the accuracy is below <b>90%</b> then make sure you do not touch or eat any mushrooms.</string>
+    <string name="nama_bahan">Nama Bahan</string>
+    <string name="steps">Steps</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="step">Potong bagian akar jamur, cuci bersih jamur. Lalu rebus jamur dalam air mendidih hingga layu. Angkat, tiriskan.</string>
+    <string name="nama_masakan">Nama Masakan</string>
 </resources>
