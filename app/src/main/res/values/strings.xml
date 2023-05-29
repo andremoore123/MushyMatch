@@ -17,7 +17,7 @@
     <string name="retake_mushroom_picture">retake mushroom picture</string>
     <string name="warning">WARNING</string>
     <string name="attention">Attention!</string>
-    <string name="warning_msg">It can happen that the app confuses edible and poisonous mushrooms. For this reason, if the accuracy is below <b>90%</b> then make sure you do not touch or eat any mushrooms.</string>
+    <string name="warning_msg">It can happen that the app confuses edible and poisonous mushrooms. For this reason, make sure you do not touch or eat any mushrooms you don\'t know.</string>
     <string name="nama_bahan">Nama Bahan</string>
     <string name="steps">Steps</string>
     <string name="ingredients">Ingredients</string>

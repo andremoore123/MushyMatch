@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
@@ -28,6 +29,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import capstone.project.mushymatch.databinding.ActivityCameraBinding
 import capstone.project.mushymatch.util.*
+import com.bumptech.glide.load.resource.bitmap.TransformationUtils.rotateImage
 import java.io.File
 import java.io.FileOutputStream
 
@@ -133,7 +135,14 @@ class CameraActivity : AppCompatActivity() {
                     bundle.putParcelable("selected_image", savedUri)
 
                     if (!isBackCamera) {
-                        val rotatedBitmap = rotateImg(BitmapFactory.decodeFile(photoFile.path), isBackCamera)
+                        // Gambar dari galeri, tidak perlu dirotasi
+                        val selectedBitmap = BitmapFactory.decodeFile(photoFile.path)
+                        bundle.putParcelable("selected_image", selectedBitmap)
+                    } else {
+                        // Gambar dari kamera, perlu dirotasi
+                        val rotatedBitmap = rotateImage(BitmapFactory.decodeFile(photoFile.path),
+                            90
+                        )
                         val rotatedFile = createTempFile(this@CameraActivity)
                         rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, FileOutputStream(rotatedFile))
                         bundle.putParcelable("selected_image", Uri.fromFile(rotatedFile))
@@ -147,6 +156,8 @@ class CameraActivity : AppCompatActivity() {
             }
         )
     }
+
+
 
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
