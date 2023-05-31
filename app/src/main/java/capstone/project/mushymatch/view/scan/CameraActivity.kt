@@ -7,7 +7,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Matrix
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
@@ -30,6 +29,7 @@ import androidx.core.content.ContextCompat
 import capstone.project.mushymatch.databinding.ActivityCameraBinding
 import capstone.project.mushymatch.util.*
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils.rotateImage
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 
@@ -137,15 +137,17 @@ class CameraActivity : AppCompatActivity() {
                     if (!isBackCamera) {
                         // Gambar dari galeri, tidak perlu dirotasi
                         val selectedBitmap = BitmapFactory.decodeFile(photoFile.path)
-                        bundle.putParcelable("selected_image", selectedBitmap)
+                        val compressedBitmap = compressImage(selectedBitmap)
+                        val compressedFile = createTempFile(this@CameraActivity)
+                        compressedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, FileOutputStream(compressedFile))
+                        bundle.putParcelable("selected_image", Uri.fromFile(compressedFile))
                     } else {
                         // Gambar dari kamera, perlu dirotasi
-                        val rotatedBitmap = rotateImage(BitmapFactory.decodeFile(photoFile.path),
-                            90
-                        )
-                        val rotatedFile = createTempFile(this@CameraActivity)
-                        rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, FileOutputStream(rotatedFile))
-                        bundle.putParcelable("selected_image", Uri.fromFile(rotatedFile))
+                        val rotatedBitmap = rotateImage(BitmapFactory.decodeFile(photoFile.path), 90)
+                        val compressedBitmap = compressImage(rotatedBitmap)
+                        val compressedFile = createTempFile(this@CameraActivity)
+                        compressedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, FileOutputStream(compressedFile))
+                        bundle.putParcelable("selected_image", Uri.fromFile(compressedFile))
                     }
 
                     Log.d(TAG, "Photo capture succeeded: $savedUri")
@@ -156,6 +158,24 @@ class CameraActivity : AppCompatActivity() {
             }
         )
     }
+
+    private fun compressImage(bitmap: Bitmap): Bitmap {
+        val maxSize = 1024 // Ukuran maksimal (dalam kilobita)
+        var compression = 90 // Kualitas kompresi awal (dalam skala 0-100)
+
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, compression, stream)
+        while (stream.toByteArray().size / 1024 > maxSize && compression > 10) {
+            stream.reset()
+            compression -= 10
+            bitmap.compress(Bitmap.CompressFormat.JPEG, compression, stream)
+        }
+        val compressedBitmap = BitmapFactory.decodeByteArray(stream.toByteArray(), 0, stream.toByteArray().size)
+        stream.close()
+
+        return compressedBitmap
+    }
+
 
 
 
@@ -186,6 +206,7 @@ class CameraActivity : AppCompatActivity() {
             }
         }, ContextCompat.getMainExecutor(this))
     }
+
 
     private fun hideSystemUI(state: Boolean) {
         @Suppress("DEPRECATION")

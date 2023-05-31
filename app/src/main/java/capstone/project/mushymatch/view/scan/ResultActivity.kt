@@ -31,7 +31,7 @@ class ResultActivity : AppCompatActivity() {
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        val toolbar = binding.toolbar
         setSupportActionBar(toolbar)
 
         supportActionBar?.apply {
@@ -51,11 +51,11 @@ class ResultActivity : AppCompatActivity() {
         binding.previewImage.setImageBitmap(croppedBitmap)
         binding.btnTakePictureAgain.setBackgroundColor(resources.getColor(R.color.black))
 
-        binding.btnMoreInformation.setOnClickListener {
-            //move to AboutMushroomActivity
-            val intent = Intent(this, MushroomInformationActivity::class.java)
-            startActivity(intent)
-        }
+//        binding.btnMoreInformation.setOnClickListener {
+//            //move to AboutMushroomActivity
+//            val intent = Intent(this, MushroomInformationActivity::class.java)
+//            startActivity(intent)
+//        }
         binding.btnTakePictureAgain.setOnClickListener{
             finish()
         }
@@ -84,19 +84,6 @@ class ResultActivity : AppCompatActivity() {
         val interpreter = Interpreter(mappedByteBuffer)
         inputStream.close()
         return interpreter
-    }
-
-    private fun cropToSquare(bitmap: Bitmap): Bitmap {
-        val width = bitmap.width
-        val height = bitmap.height
-        val size = if (width < height) width else height
-
-        val x = (width - size) / 2
-        val y = (height - size) / 2
-
-        val matrix = Matrix()
-
-        return Bitmap.createBitmap(bitmap, x, y, size, size, matrix, true)
     }
 
     private fun preprocessImage(image: Bitmap): ByteBuffer {
@@ -168,6 +155,19 @@ class ResultActivity : AppCompatActivity() {
         // Display the result
         binding.tvResultName.text = "Class: $maxIndex"
         binding.tvResultAccuracy.text = "Accuracy: $maxValue"
+    }
+
+    private fun cropToSquare(bitmap: Bitmap): Bitmap {
+        val width = bitmap.width
+        val height = bitmap.height
+        val size = if (width < height) width else height
+
+        val x = (width - size) / 2
+        val y = (height - size) / 2
+
+        val matrix = Matrix()
+
+        return Bitmap.createBitmap(bitmap, x, y, size, size, matrix, true)
     }
 
 }

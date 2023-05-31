@@ -17,7 +17,7 @@ class ListRecipesActivity : AppCompatActivity() {
         binding = ActivityListRecipesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        val toolbar = binding.toolbar
         setSupportActionBar(toolbar)
 
         supportActionBar?.apply {

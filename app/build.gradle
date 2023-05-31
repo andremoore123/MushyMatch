@@ -77,6 +77,5 @@ dependencies {
     implementation 'org.tensorflow:tensorflow-lite:2.5.0'
     implementation 'org.tensorflow:tensorflow-lite-gpu:2.5.0'
 
-//    implementation 'com.wonderkiln:camerakit:0.13.1' //camera view
-//    implementation 'org.tensorflow:tensorflow-lite:2.3.0' //tensorflow
+
 }
