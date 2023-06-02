@@ -1,9 +1,8 @@
-package capstone.project.mushymatch.view.home
+package capstone.project.mushymatch.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import capstone.project.mushymatch.R
 import capstone.project.mushymatch.databinding.ActivityMainBinding
 import capstone.project.mushymatch.view.scan.CameraActivity
 

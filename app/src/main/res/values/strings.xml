@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">MushyMatch</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
     <string name="description">Jamur enoki (Flammulina velutipes) adalah sejenis jamur yang memiliki batang panjang dan tipis dengan tudung kecil berwarna putih. Jamur enoki memiliki tekstur renyah dan rasa manis. Biasanya, mereka tumbuh dalam kelompok rapat dan memiliki akar berwarna putih yang dapat dimakan. Jamur enoki sering digunakan dalam masakan Asia, seperti sup dan tumisan, dan mereka juga dapat dijadikan bahan dalam salad atau campuran mie. Selain itu, jamur enoki diketahui memiliki beberapa manfaat kesehatan, seperti mengandung serat, vitamin B, dan mineral.</string>
     <string name="edible">Edible</string>
     <string name="mushroom_name">Mushroom Name</string>
