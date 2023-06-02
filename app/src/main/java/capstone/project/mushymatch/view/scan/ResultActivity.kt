@@ -15,16 +15,17 @@ import capstone.project.mushymatch.databinding.ActivityResultBinding
 import capstone.project.mushymatch.view.about.MushroomInformationActivity
 import org.tensorflow.lite.Interpreter
 import java.io.FileInputStream
+import java.io.IOException
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.MappedByteBuffer
 import java.nio.channels.FileChannel
-
 @Suppress("DEPRECATION")
 class ResultActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityResultBinding
     private lateinit var interpreter: Interpreter
+    private val labelList = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,12 +34,6 @@ class ResultActivity : AppCompatActivity() {
 
         val toolbar = binding.toolbar
         setSupportActionBar(toolbar)
-
-        supportActionBar?.apply {
-            supportActionBar?.title = "Mushroom identification"
-            setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.back_to) // Ganti dengan gambar ikon kembali yang diinginkan
-        }
 
         // Load the machine learning model
         interpreter = loadModelFile()
@@ -49,14 +44,8 @@ class ResultActivity : AppCompatActivity() {
         val bitmap = BitmapFactory.decodeFile(selectedImage?.path)
         val croppedBitmap = cropToSquare(bitmap)
         binding.previewImage.setImageBitmap(croppedBitmap)
-        binding.btnTakePictureAgain.setBackgroundColor(resources.getColor(R.color.black))
 
-//        binding.btnMoreInformation.setOnClickListener {
-//            //move to AboutMushroomActivity
-//            val intent = Intent(this, MushroomInformationActivity::class.java)
-//            startActivity(intent)
-//        }
-        binding.btnTakePictureAgain.setOnClickListener{
+        binding.btnTakePictureAgain.setOnClickListener {
             finish()
         }
 
@@ -87,11 +76,9 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun preprocessImage(image: Bitmap): ByteBuffer {
-        val inputShape = interpreter.getInputTensor(0).shape()
-        val inputSize = inputShape[1] // Assuming input shape is [batchSize, height, width, channels]
-
-        val resizedImage = Bitmap.createScaledBitmap(image, inputSize, inputSize, true)
-        val inputBuffer = ByteBuffer.allocateDirect(inputSize * inputSize * 3 * 4) // Assuming 3 channels and 4 bytes per float
+        val inputSize = 224
+        val resizedImage = Bitmap.createScaledBitmap(image, inputSize, inputSize, false)
+        val inputBuffer = ByteBuffer.allocateDirect(inputSize * inputSize * 3 * 4)
 
         inputBuffer.order(ByteOrder.nativeOrder())
         inputBuffer.rewind()
@@ -114,16 +101,14 @@ class ResultActivity : AppCompatActivity() {
 
     private fun runInference(inputBuffer: ByteBuffer): Pair<Int, Float> {
         val outputShape = interpreter.getOutputTensor(0).shape()
-        val outputSize = outputShape[1] // Assuming output shape is [batchSize, numClasses]
+        val outputSize = outputShape[1]
 
-        val outputBuffer = ByteBuffer.allocateDirect(outputSize * 4) // Assuming 4 bytes per float
+        val outputBuffer = ByteBuffer.allocateDirect(outputSize * 4)
         outputBuffer.order(ByteOrder.nativeOrder())
         outputBuffer.rewind()
 
-        // Run inference
         interpreter.run(inputBuffer, outputBuffer)
 
-        // Post-process the output buffer and return the result as a pair of index and value
         return processOutput(outputBuffer)
     }
 
@@ -146,15 +131,29 @@ class ResultActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun processImage(image: Bitmap) {
-        // Preprocess the image if required for the model
         val inputBuffer = preprocessImage(image)
-
-        // Perform inference using the model
         val (maxIndex, maxValue) = runInference(inputBuffer)
 
-        // Display the result
-        binding.tvResultName.text = "Class: $maxIndex"
+        // Load the label list if it's empty
+        if (labelList.isEmpty()) {
+            loadLabelList()
+        }
+
+        val className = labelList[maxIndex]
+
+        binding.tvResultName.text = "Class: $className"
         binding.tvResultAccuracy.text = "Accuracy: $maxValue"
+    }
+
+    private fun loadLabelList() {
+        val labelFilename = "labels.txt"
+        try {
+            val labels = assets.open(labelFilename).bufferedReader().useLines { it.toList() }
+            labelList.clear()
+            labelList.addAll(labels)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
     }
 
     private fun cropToSquare(bitmap: Bitmap): Bitmap {
@@ -169,5 +168,6 @@ class ResultActivity : AppCompatActivity() {
 
         return Bitmap.createBitmap(bitmap, x, y, size, size, matrix, true)
     }
-
 }
+
+

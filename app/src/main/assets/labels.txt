@@ -1,0 +1,4 @@
+0 Jamur Enoki
+1 Jamur Shimeji (Coklat)
+2 Jamur Shimeji (Putih)
+3 Jamur Tiram
