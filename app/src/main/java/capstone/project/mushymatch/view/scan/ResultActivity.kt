@@ -9,8 +9,6 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.appcompat.widget.Toolbar
-import capstone.project.mushymatch.R
 import capstone.project.mushymatch.databinding.ActivityResultBinding
 import capstone.project.mushymatch.view.about.MushroomInformationActivity
 import org.tensorflow.lite.Interpreter
@@ -22,10 +20,12 @@ import java.nio.MappedByteBuffer
 import java.nio.channels.FileChannel
 @Suppress("DEPRECATION")
 class ResultActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityResultBinding
     private lateinit var interpreter: Interpreter
+    private var classificationResult = 0
     private val labelList = mutableListOf<String>()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +48,14 @@ class ResultActivity : AppCompatActivity() {
         binding.btnTakePictureAgain.setOnClickListener {
             finish()
         }
+        //move to mushroom information activity with label
+
+        binding.btnMoreInformation.setOnClickListener {
+            val intent = Intent(this, MushroomInformationActivity::class.java)
+            intent.putExtra("label", classificationResult)
+            startActivity(intent)
+        }
+
 
         processImage(croppedBitmap)
     }
@@ -139,7 +147,9 @@ class ResultActivity : AppCompatActivity() {
             loadLabelList()
         }
 
+        this.classificationResult = maxIndex + 1
         val className = labelList[maxIndex]
+
 
         binding.tvResultName.text = "Class: $className"
         binding.tvResultAccuracy.text = "Accuracy: $maxValue"
@@ -168,6 +178,7 @@ class ResultActivity : AppCompatActivity() {
 
         return Bitmap.createBitmap(bitmap, x, y, size, size, matrix, true)
     }
+
 }
 
 
