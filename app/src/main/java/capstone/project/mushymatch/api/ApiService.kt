@@ -3,7 +3,6 @@ package capstone.project.mushymatch.api
 import capstone.project.mushymatch.api.response.mushroom.*
 import capstone.project.mushymatch.api.response.recipe.*
 import capstone.project.mushymatch.api.response.mushroom.DetailMushroomResponse
-import capstone.project.mushymatch.api.response.mushroom.GetMushroomResponse
 import capstone.project.mushymatch.api.response.recipe.DetailRecipesResponse
 import capstone.project.mushymatch.api.response.recipe.ListRecipesResponse
 import retrofit2.Call

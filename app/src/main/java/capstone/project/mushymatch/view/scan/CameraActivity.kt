@@ -78,6 +78,38 @@ class CameraActivity : AppCompatActivity() {
 
     }
 
+    private fun toggleTorchMode() {
+        val cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
+        val cameraId = cameraManager.cameraIdList.find {
+            cameraManager.getCameraCharacteristics(it).get(CameraCharacteristics.LENS_FACING) == CameraCharacteristics.LENS_FACING_BACK
+        }
+
+        try {
+            val isTorchOn = cameraId?.let {
+                cameraManager.getCameraCharacteristics(it)
+                    .get(CameraCharacteristics.FLASH_INFO_AVAILABLE)
+            } == true
+
+            cameraId?.let {
+                cameraManager.setTorchMode(it, !isTorchOn)
+            }
+        } catch (e: CameraAccessException) {
+            Toast.makeText(
+                this@CameraActivity,
+                "Tidak dapat mengaktifkan lampu kilat. Pastikan tidak ada aplikasi lain yang menggunakan kamera.",
+                Toast.LENGTH_SHORT
+            ).show()
+            e.printStackTrace()
+        } catch (e: SecurityException) {
+            Toast.makeText(
+                this@CameraActivity,
+                "Tidak dapat mengaktifkan lampu kilat. Perizinan tidak diberikan.",
+                Toast.LENGTH_SHORT
+            ).show()
+            e.printStackTrace()
+        }
+    }
+
     private var getFile: File? = null
 
     private fun startGallery() {
@@ -176,19 +208,14 @@ class CameraActivity : AppCompatActivity() {
         return compressedBitmap
     }
 
-
-
-
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
         cameraProviderFuture.addListener({
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
-            val preview = Preview.Builder()
-                .build()
-                .also {
-                    it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
-                }
+            val preview = Preview.Builder().build().also {
+                it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
+            }
 
             imageCapture = ImageCapture.Builder().build()
 
@@ -201,15 +228,17 @@ class CameraActivity : AppCompatActivity() {
                     imageCapture
                 )
             } catch (exc: Exception) {
-                Toast.makeText(this@CameraActivity, "Gagal meluncurkan kamera", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(
+                    this@CameraActivity,
+                    "Gagal meluncurkan kamera",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }, ContextCompat.getMainExecutor(this))
     }
 
 
     private fun hideSystemUI(state: Boolean) {
-        @Suppress("DEPRECATION")
         if (state) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 window.insetsController?.hide(WindowInsets.Type.statusBars())
@@ -250,6 +279,8 @@ class CameraActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
                 finish()
+            } else {
+                startCamera() // Mulai kamera jika izin diberikan
             }
         }
     }
@@ -261,7 +292,15 @@ class CameraActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         hideSystemUI(true)
-        startCamera()
+        if (allPermissionsGranted()) {
+            startCamera() // Mulai kamera jika semua izin telah diberikan
+        } else {
+            ActivityCompat.requestPermissions(
+                this,
+                REQUIRED_PERMISSIONS,
+                REQUEST_CODE_PERMISSIONS
+            )
+        }
     }
 
     override fun onStop() {
@@ -272,6 +311,7 @@ class CameraActivity : AppCompatActivity() {
     companion object {
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
         private const val REQUEST_CODE_PERMISSIONS = 10
+        private const val TAG = "CameraActivity"
     }
 
 }

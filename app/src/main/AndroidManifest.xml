@@ -5,19 +5,13 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera.flash" />
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
-
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-feature android:name="android.hardware.camera.flash" />
-    <uses-feature android:name="android.hardware.camera.privileged" />
-    <uses-feature android:name="android.hardware.camera.ar" />
-    <uses-feature
-        android:name="android.hardware.camera.ar.features"
-        android:required="false" />
-
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -29,10 +23,22 @@
         android:theme="@style/Theme.MushyMatch"
         tools:targetApi="31">
         <activity
-            android:name=".CookingRecipesActivity"
+            android:name=".DeteksiActivity"
             android:exported="false" />
         <activity
-            android:name=".ListRecipesActivity"
+            android:name=".view.scan.home.HomePageActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.recipes.detail.CookingRecipesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.recipes.list.ListRecipesActivity"
             android:exported="false" />
         <activity
             android:name=".view.about.MushroomInformationActivity"
@@ -45,13 +51,7 @@
             android:exported="false" />
         <activity
             android:name=".view.MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>

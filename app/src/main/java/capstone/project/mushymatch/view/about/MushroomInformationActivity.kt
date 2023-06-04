@@ -50,6 +50,8 @@ class MushroomInformationActivity : AppCompatActivity() {
 
         viewModel.getMushroomDetail(maxIndex)
 
+        //loading
+        showLoading(true)
         viewModel.mushroomDetail.observe(this) { mushroomDetail ->
             binding.tvMushroomName.text = mushroomDetail.name
             binding.tvMushroomScientificName.text = mushroomDetail.latinName
@@ -58,6 +60,8 @@ class MushroomInformationActivity : AppCompatActivity() {
             Glide.with(this)
                 .load(mushroomDetail.picture)
                 .into(binding.imageMushroom)
+
+            showLoading(false)
         }
 
         supportActionBar?.apply {
@@ -81,6 +85,17 @@ class MushroomInformationActivity : AppCompatActivity() {
 //            startActivity(intent)
 //        }
 
+    }
+
+    //loading
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            binding.progressBar.visibility = View.VISIBLE
+            binding.content.visibility = View.GONE
+        } else {
+            binding.progressBar.visibility = View.GONE
+            binding.content.visibility = View.VISIBLE
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

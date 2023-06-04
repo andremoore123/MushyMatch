@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".view.about.MushroomInformationActivity">
 
@@ -19,9 +19,26 @@
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/black" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
     <ScrollView
+        android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/linearLayout1"
@@ -108,9 +125,11 @@
                 android:padding="8dp"
                 app:layout_constraintVertical_bias="0.079"
                 tools:layout_editor_absoluteX="16dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/tv_desc"
                         android:layout_width="match_parent"
@@ -119,24 +138,25 @@
                         android:textColor="@color/black"
                         android:textSize="24sp"
                         android:textStyle="bold" />
+
                     <ImageView
                         android:id="@+id/iv_desc"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="8dp"
-                        android:src="@drawable/ic_down"
-                        android:contentDescription="@string/more" />
+                        android:contentDescription="@string/more"
+                        android:src="@drawable/ic_down" />
                 </RelativeLayout>
 
                 <TextView
                     android:id="@+id/tv_description"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="@string/description"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout
@@ -149,6 +169,7 @@
                 android:padding="8dp"
                 app:layout_constraintVertical_bias="0.079"
                 tools:layout_editor_absoluteX="16dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -168,19 +189,19 @@
                         android:layout_height="40dp"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="8dp"
-                        android:src="@drawable/ic_down"
-                        android:contentDescription="@string/more" />
+                        android:contentDescription="@string/more"
+                        android:src="@drawable/ic_down" />
                 </RelativeLayout>
 
 
                 <TextView
                     android:id="@+id/tv_desc_habit"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="@string/description"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <RelativeLayout
@@ -207,8 +228,8 @@
                     android:layout_height="40dp"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="8dp"
-                    android:src="@drawable/next_page"
-                    android:contentDescription="@string/next_page" />
+                    android:contentDescription="@string/next_page"
+                    android:src="@drawable/next_page" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -244,4 +265,5 @@
 
 
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
