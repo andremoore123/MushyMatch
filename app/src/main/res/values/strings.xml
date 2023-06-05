@@ -30,4 +30,10 @@
     <string name="search">Search</string>
     <string name="nama_jamur">Nama Jamur</string>
     <string name="nama_ilmiah">Nama ilmiah</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mulai_deteksi_jamur">Mulai Deteksi Jamur</string>
+    <string name="import_image">import image</string>
+    <string name="ambil_gambar">ambil gambar</string>
+    <string name="kembali">kembali</string>
 </resources>

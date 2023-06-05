@@ -309,8 +309,8 @@ class CameraActivity : AppCompatActivity() {
     }
 
     companion object {
-        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
-        private const val REQUEST_CODE_PERMISSIONS = 10
+        internal val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+        internal const val REQUEST_CODE_PERMISSIONS = 10
         private const val TAG = "CameraActivity"
     }
 

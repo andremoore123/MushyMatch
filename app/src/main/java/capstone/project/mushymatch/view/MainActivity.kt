@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import capstone.project.mushymatch.databinding.ActivityMainBinding
 import capstone.project.mushymatch.view.scan.CameraActivity
+import capstone.project.mushymatch.view.scan.DetectionActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.toCamera.setOnClickListener {
-            val intent = Intent(this, CameraActivity::class.java)
+            val intent = Intent(this, DetectionActivity::class.java)
             startActivity(intent)
         }
     }

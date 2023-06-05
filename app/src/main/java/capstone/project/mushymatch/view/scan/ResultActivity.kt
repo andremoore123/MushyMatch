@@ -40,7 +40,6 @@ class ResultActivity : AppCompatActivity() {
 
         val bundle = intent.getBundleExtra("bundle")
         val selectedImage = bundle?.getParcelable<Uri>("selected_image")
-
         val bitmap = BitmapFactory.decodeFile(selectedImage?.path)
         val croppedBitmap = cropToSquare(bitmap)
         binding.previewImage.setImageBitmap(croppedBitmap)
