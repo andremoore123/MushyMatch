@@ -1,21 +1,18 @@
 package capstone.project.mushymatch.view.about
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.AnimationUtils
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import capstone.project.mushymatch.R
 import capstone.project.mushymatch.api.ApiConfig
 import capstone.project.mushymatch.api.repository.MushroomRepository
 import capstone.project.mushymatch.databinding.ActivityMushroomInformationBinding
-import capstone.project.mushymatch.view.recipes.list.ListRecipesActivity
 import com.bumptech.glide.Glide
-import kotlin.math.log
 
 @Suppress("DEPRECATION")
 class MushroomInformationActivity : AppCompatActivity() {
@@ -32,7 +29,6 @@ class MushroomInformationActivity : AppCompatActivity() {
         binding = ActivityMushroomInformationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         val toolbar = binding.toolbar
         setSupportActionBar(toolbar)
 
@@ -41,7 +37,7 @@ class MushroomInformationActivity : AppCompatActivity() {
 
         // Inisialisasi ViewModel
         val viewModelFactory = MushroomInformationViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MushroomInformationViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory)[MushroomInformationViewModel::class.java]
 
 
         // Mendapatkan maxIndex dari intent

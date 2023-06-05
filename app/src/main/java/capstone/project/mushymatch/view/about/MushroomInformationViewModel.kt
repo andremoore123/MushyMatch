@@ -1,12 +1,11 @@
 package capstone.project.mushymatch.view.about
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import capstone.project.mushymatch.api.repository.MushroomRepository
 import capstone.project.mushymatch.api.repository.ApiCallback
+import capstone.project.mushymatch.api.repository.MushroomRepository
 import capstone.project.mushymatch.api.response.mushroom.DetailMushroomResponse
 import capstone.project.mushymatch.api.response.recipe.ListRecipesResponse
 
@@ -33,6 +32,7 @@ class MushroomInformationViewModel(private val mushroomRepository: MushroomRepos
 
 }
 
+@Suppress("UNCHECKED_CAST")
 class MushroomInformationViewModelFactory(private val mushroomRepository: MushroomRepository) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

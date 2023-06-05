@@ -13,7 +13,7 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         android:padding="16dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,26 +37,25 @@
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold" />
-            />
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/content_result"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/white"
         android:padding="16dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/content_result"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
             android:padding="16dp"
-            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -133,9 +132,14 @@
                 android:id="@+id/tv_more_information"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_gravity="center_horizontal"
                 android:layout_marginHorizontal="30dp"
-                android:text="@string/more_information" />
+                android:text="@string/more_information"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:background="@color/dark_liver"
+                android:textAlignment="center"
+                android:gravity="center"/>
 
 
             <!--        <capstone.project.mushymatch.view.custom.button.CustomButtonMoreInformation-->

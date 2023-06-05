@@ -79,16 +79,6 @@ class DetectionActivity : AppCompatActivity() {
             }
         }
 
-        binding.tvMoreInformation.setOnClickListener {
-            try{
-                val intent = Intent(this@DetectionActivity, MushroomInformationActivity::class.java)
-                intent.putExtra("label", classificationResult)
-                startActivity(intent)
-            }catch (e: Exception){
-                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
-            }
-        }
-
 
     }
     @Deprecated("Deprecated in Java")
