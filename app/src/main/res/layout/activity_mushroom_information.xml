@@ -19,26 +19,41 @@
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/black" />
 
+
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="56dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.99" />
+
     <ScrollView
         android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@+id/guideline5">
 
         <LinearLayout
             android:id="@+id/linearLayout1"
@@ -46,163 +61,114 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline11"
-            app:layout_constraintTop_toTopOf="@+id/guideline7"
             app:layout_constraintVertical_bias="0.019"
             tools:layout_editor_absoluteX="16dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <ImageView
+                android:id="@+id/image_mushroom"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/image_mushroom"
-                    android:layout_width="match_parent"
-                    android:layout_height="240dp"
-                    android:layout_marginTop="8dp"
-                    android:contentDescription="@string/mushroom_image"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/sample_mushroom"
-                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-                <TextView
-                    android:id="@+id/tv_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="16dp"
-                    android:background="@drawable/lb_edible"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="8dp"
-                    android:text="@string/edible"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/image_mushroom"
-                    app:layout_constraintStart_toStartOf="@+id/image_mushroom"
-                    app:layout_constraintTop_toTopOf="@+id/image_mushroom"
-                    app:layout_constraintVertical_bias="0.92" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayout2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toTopOf="@+id/guideline11"
-                app:layout_constraintTop_toTopOf="@+id/guideline7"
-                app:layout_constraintVertical_bias="0.019"
-                tools:layout_editor_absoluteX="16dp">
-
-                <TextView
-                    android:id="@+id/tv_mushroom_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/mushroom_name"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_mushroom_scientific_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/scientific_name"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="240dp"
                 android:layout_marginTop="8dp"
+                android:contentDescription="@string/mushroom_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/sample_mushroom"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+            <TextView
+                android:id="@+id/tv_mushroom_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/mushroom_name"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_mushroom_scientific_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/scientific_name"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/lb_edible"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="4dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/edible"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/image_mushroom"
+                app:layout_constraintStart_toStartOf="@+id/image_mushroom"
+                app:layout_constraintTop_toTopOf="@+id/image_mushroom"
+                app:layout_constraintVertical_bias="0.92" />
+
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:padding="4dp"
+                android:text="@string/desc"
+                android:textColor="@color/black"
                 android:background="@color/gray_100"
-                android:orientation="vertical"
-                android:padding="8dp"
-                app:layout_constraintVertical_bias="0.079"
-                tools:layout_editor_absoluteX="16dp">
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/description"
+                android:textSize="14sp"
+                android:background="@color/gray_100"/>
 
-                    <TextView
-                        android:id="@+id/tv_desc"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/desc"
-                        android:textColor="@color/black"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:id="@+id/iv_desc"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="8dp"
-                        android:contentDescription="@string/more"
-                        android:src="@drawable/ic_down" />
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/tv_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/description"
-                    android:textSize="14sp"
-                    android:visibility="gone" />
-            </LinearLayout>
-
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/layout_habitat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@color/gray_100"
-                android:orientation="vertical"
-                android:padding="8dp"
-                app:layout_constraintVertical_bias="0.079"
-                tools:layout_editor_absoluteX="16dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tv_habitat"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/habitat"
-                        android:textColor="@color/black"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:id="@+id/iv_habitat"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="8dp"
-                        android:contentDescription="@string/more"
-                        android:src="@drawable/ic_down" />
-                </RelativeLayout>
-
+                android:padding="4dp"
+                android:background="@color/gray_100">
 
                 <TextView
-                    android:id="@+id/tv_desc_habit"
+                    android:id="@+id/tv_habitat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/description"
-                    android:textSize="14sp"
-                    android:visibility="gone" />
-            </LinearLayout>
+                    android:text="@string/habitat"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:background="@color/gray_100"/>
+
+                <ImageView
+                    android:id="@+id/iv_habitat"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="12dp"
+                    android:contentDescription="@string/more"
+                    android:src="@drawable/ic_down" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_desc_habit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/description"
+                android:textSize="14sp"
+                android:background="@color/gray_100"
+                android:visibility="gone" />
 
             <RelativeLayout
                 android:id="@+id/layout_recipes"
@@ -232,36 +198,246 @@
                     android:src="@drawable/next_page" />
             </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/layout_cultivate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@color/smith_apple"
-                android:orientation="vertical"
-                android:padding="8dp">
-
-                <TextView
-                    android:id="@+id/tv_how_to_cultivate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/how_to_cultivate"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/iv_how_to_cultivate"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="8dp"
-                    android:src="@drawable/next_page" />
-            </RelativeLayout>
-
         </LinearLayout>
 
+
+
     </ScrollView>
+
+
+    <!--    <ScrollView-->
+<!--        android:id="@+id/content"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:visibility="visible"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/toolbar">-->
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/linearLayout1"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:padding="16dp"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/guideline11"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/guideline7"-->
+<!--            app:layout_constraintVertical_bias="0.019"-->
+<!--            tools:layout_editor_absoluteX="16dp">-->
+
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content">-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/image_mushroom"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="240dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:contentDescription="@string/mushroom_image"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:srcCompat="@drawable/sample_mushroom"-->
+<!--                    tools:srcCompat="@tools:sample/backgrounds/scenic" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_status"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:background="@drawable/lb_edible"-->
+<!--                    android:paddingHorizontal="16dp"-->
+<!--                    android:paddingVertical="8dp"-->
+<!--                    android:text="@string/edible"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="18sp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/image_mushroom"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/image_mushroom"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/image_mushroom"-->
+<!--                    app:layout_constraintVertical_bias="0.92" />-->
+
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:id="@+id/linearLayout2"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/guideline11"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/guideline7"-->
+<!--                app:layout_constraintVertical_bias="0.019"-->
+<!--                tools:layout_editor_absoluteX="16dp">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_mushroom_name"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="16dp"-->
+<!--                    android:text="@string/mushroom_name"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="24sp"-->
+<!--                    android:textStyle="bold" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_mushroom_scientific_name"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="4dp"-->
+<!--                    android:text="@string/scientific_name"-->
+<!--                    android:textSize="14sp" />-->
+<!--            </LinearLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:id="@+id/layout_description"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:background="@color/gray_100"-->
+<!--                android:orientation="vertical"-->
+<!--                android:padding="8dp"-->
+<!--                app:layout_constraintVertical_bias="0.079"-->
+<!--                tools:layout_editor_absoluteX="16dp">-->
+
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_desc"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/desc"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="24sp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/iv_desc"-->
+<!--                        android:layout_width="40dp"-->
+<!--                        android:layout_height="40dp"-->
+<!--                        android:layout_alignParentEnd="true"-->
+<!--                        android:layout_marginEnd="8dp"-->
+<!--                        android:contentDescription="@string/more"-->
+<!--                        android:src="@drawable/ic_down" />-->
+<!--                </RelativeLayout>-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_description"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="4dp"-->
+<!--                    android:text="@string/description"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:visibility="gone" />-->
+<!--            </LinearLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:id="@+id/layout_habitat"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:background="@color/gray_100"-->
+<!--                android:orientation="vertical"-->
+<!--                android:padding="8dp"-->
+<!--                app:layout_constraintVertical_bias="0.079"-->
+<!--                tools:layout_editor_absoluteX="16dp">-->
+
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_habitat"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/habitat"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="24sp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/iv_habitat"-->
+<!--                        android:layout_width="40dp"-->
+<!--                        android:layout_height="40dp"-->
+<!--                        android:layout_alignParentEnd="true"-->
+<!--                        android:layout_marginEnd="8dp"-->
+<!--                        android:contentDescription="@string/more"-->
+<!--                        android:src="@drawable/ic_down" />-->
+<!--                </RelativeLayout>-->
+
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_desc_habit"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="4dp"-->
+<!--                    android:text="@string/description"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:visibility="gone" />-->
+<!--            </LinearLayout>-->
+
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/layout_recipes"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:background="@color/smith_apple"-->
+<!--                android:orientation="vertical"-->
+<!--                android:padding="8dp">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_recipes"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/cooking_recipes"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="24sp"-->
+<!--                    android:textStyle="bold" />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/iv_recipes"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_marginEnd="8dp"-->
+<!--                    android:contentDescription="@string/next_page"-->
+<!--                    android:src="@drawable/next_page" />-->
+<!--            </RelativeLayout>-->
+
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/layout_cultivate"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:background="@color/smith_apple"-->
+<!--                android:orientation="vertical"-->
+<!--                android:padding="8dp">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_how_to_cultivate"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/how_to_cultivate"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="24sp"-->
+<!--                    android:textStyle="bold" />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/iv_how_to_cultivate"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_marginEnd="8dp"-->
+<!--                    android:src="@drawable/next_page" />-->
+<!--            </RelativeLayout>-->
+<!--            -->
+
+<!--        </LinearLayout>-->
+
+<!--    </ScrollView>-->
 
 
 

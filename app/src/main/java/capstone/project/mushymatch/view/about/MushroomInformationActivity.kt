@@ -66,10 +66,6 @@ class MushroomInformationActivity : AppCompatActivity() {
             setHomeAsUpIndicator(R.drawable.back_to) // Ganti dengan gambar ikon kembali yang diinginkan
         }
 
-        binding.ivDesc.isVisible = true
-        binding.layoutDescription.setOnClickListener{
-            toggleDescription()
-        }
 
         binding.ivHabitat.isVisible = true
         binding.layoutHabitat.setOnClickListener{
@@ -124,27 +120,6 @@ class MushroomInformationActivity : AppCompatActivity() {
         }
 
         isHabitatExpanded = !isHabitatExpanded
-    }
-
-
-    private fun toggleDescription() {
-        if (isDescriptionExpanded) {
-            // Contract description
-            val rotateUpAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate_180_reverse)
-            rotateUpAnimation.fillAfter = true
-            binding.ivDesc.startAnimation(rotateUpAnimation)
-            binding.tvDescription.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_up))
-            binding.tvDescription.visibility = View.GONE
-        } else {
-            // Expand description
-            val rotateDownAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate_180) // Updated animation
-            rotateDownAnimation.fillAfter = true
-            binding.ivDesc.startAnimation(rotateDownAnimation)
-            binding.tvDescription.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_down))
-            binding.tvDescription.visibility = View.VISIBLE
-        }
-
-        isDescriptionExpanded = !isDescriptionExpanded
     }
 
 }

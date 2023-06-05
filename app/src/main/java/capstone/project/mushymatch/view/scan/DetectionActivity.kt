@@ -117,18 +117,9 @@ class DetectionActivity : AppCompatActivity() {
             interpreter = loadModelFile()
 
             val bitmap = BitmapFactory.decodeFile(savedUri.path)
-            val croppedBitmap = cropToSquare(bitmap)
-            binding.previewImage.setImageBitmap(croppedBitmap)
-            processImage(croppedBitmap)
+            binding.previewImage.setImageBitmap(bitmap)
+            processImage(bitmap)
 
-
-//            val bundle = Bundle()
-//            bundle.putBoolean("isBackCamera", true)
-//            bundle.putParcelable("selected_image", savedUri)
-//
-//            val intent = Intent(this@CameraActivity, ResultActivity::class.java)
-//            intent.putExtra("bundle", bundle)
-//            startActivity(intent)
         }
     }
 
@@ -196,9 +187,9 @@ class DetectionActivity : AppCompatActivity() {
         resizedImage.getPixels(pixels, 0, inputSize, 0, 0, inputSize, inputSize)
 
         for (pixelValue in pixels) {
-            val r = (pixelValue shr 16 and 0xFF).toFloat()
-            val g = (pixelValue shr 8 and 0xFF).toFloat()
-            val b = (pixelValue and 0xFF).toFloat()
+            val r = (pixelValue shr 16 and 0xFF) / 255.0f
+            val g = (pixelValue shr 8 and 0xFF) / 255.0f
+            val b = (pixelValue and 0xFF) / 255.0f
 
             inputBuffer.putFloat(r)
             inputBuffer.putFloat(g)
@@ -250,10 +241,10 @@ class DetectionActivity : AppCompatActivity() {
 
         this.classificationResult = maxIndex + 1
         val className = labelList[maxIndex]
-
+        val accuracyPercentage = (maxValue * 100).toInt() // Convert accuracy to percentage
 
         binding.tvResultName.text = "Class: $className"
-        binding.tvResultAccuracy.text = "Accuracy: $maxValue"
+        binding.tvResultAccuracy.text = "Accuracy: $accuracyPercentage%"
 
         showIdentificationResult(true)
     }
@@ -295,8 +286,6 @@ class DetectionActivity : AppCompatActivity() {
 
     companion object {
         private const val REQUEST_IMAGE_CAPTURE = 1001
-        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
-        private const val REQUEST_CODE_PERMISSIONS = 10
         private const val TAG = "DetectionActivity"
     }
 }

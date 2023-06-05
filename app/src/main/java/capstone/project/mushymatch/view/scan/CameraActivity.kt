@@ -186,6 +186,7 @@ class CameraActivity : AppCompatActivity() {
                     val intent = Intent(this@CameraActivity, ResultActivity::class.java)
                     intent.putExtra("bundle", bundle)
                     startActivity(intent)
+
                 }
             }
         )
