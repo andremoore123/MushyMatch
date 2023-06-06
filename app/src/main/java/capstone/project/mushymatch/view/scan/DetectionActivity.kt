@@ -70,13 +70,10 @@ class DetectionActivity : AppCompatActivity() {
         }
 
         binding.btnMoreInformation.setOnClickListener {
-            try{
-                val intent = Intent(this@DetectionActivity, MushroomInformationActivity::class.java)
-                intent.putExtra("label", classificationResult)
-                startActivity(intent)
-            }catch (e: Exception){
-                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
-            }
+            val intent = Intent(this@DetectionActivity, MushroomInformationActivity::class.java)
+            intent.putExtra("label", classificationResult)
+            startActivity(intent)
+
         }
 
 
@@ -243,7 +240,7 @@ class DetectionActivity : AppCompatActivity() {
         val className = labelList[maxIndex]
         val accuracyPercentage = (maxValue * 100).toInt() // Convert accuracy to percentage
 
-        binding.tvResultName.text = "Class: $className"
+        binding.tvResultName.text = className
         binding.tvResultAccuracy.text = "Accuracy: $accuracyPercentage%"
 
         showIdentificationResult(true)

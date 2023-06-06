@@ -3,12 +3,15 @@ package capstone.project.mushymatch.api.response.recipe
 import com.google.gson.annotations.SerializedName
 
 data class ListRecipesResponse(
-
-	@field:SerializedName("ListRecipesResponse")
+	@SerializedName("ListRecipesResponse")
 	val listRecipesResponse: List<ListRecipesResponseItem>
 )
 
+
 data class ListRecipesResponseItem(
+
+	@field:SerializedName("name_jamur")
+	val nameJamur: String,
 
 	@field:SerializedName("pict_recipe")
 	val pictRecipe: String,

@@ -1,9 +1,11 @@
 package capstone.project.mushymatch.api.repository
 
+import android.util.Log
 import capstone.project.mushymatch.api.ApiService
 import capstone.project.mushymatch.api.response.mushroom.DetailMushroomResponse
 import capstone.project.mushymatch.api.response.recipe.DetailRecipesResponse
 import capstone.project.mushymatch.api.response.recipe.ListRecipesResponse
+import capstone.project.mushymatch.api.response.recipe.ListRecipesResponseItem
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -52,26 +54,30 @@ class MushroomRepository(private val apiService: ApiService) {
         })
     }
 
-    fun getRecipes(id: Int, callback: ApiCallback<ListRecipesResponse>) {
+    fun getRecipes(id: Int, callback: ApiCallback<List<ListRecipesResponseItem>>) {
         val call = apiService.getRecipes(id)
-        call.enqueue(object : Callback<ListRecipesResponse> {
+        call.enqueue(object : Callback<List<ListRecipesResponseItem>> {
             override fun onResponse(
-                call: Call<ListRecipesResponse>,
-                response: Response<ListRecipesResponse>
+                call: Call<List<ListRecipesResponseItem>>,
+                response: Response<List<ListRecipesResponseItem>>
             ) {
                 if (response.isSuccessful) {
                     val recipesResponse = response.body()
                     recipesResponse?.let { callback.onSuccess(it) }
+                    Log.d("MushroomRepository", "Success to fetch recipes")
                 } else {
                     callback.onError("Failed to fetch recipes")
+                    Log.d("MushroomRepository", "Failed to fetch recipes")
                 }
             }
 
-            override fun onFailure(call: Call<ListRecipesResponse>, t: Throwable) {
+            override fun onFailure(call: Call<List<ListRecipesResponseItem>>, t: Throwable) {
                 callback.onError(t.message ?: "Error occurred")
             }
         })
     }
+
+
 
     fun getRecipeDetail(id: Int, callback: ApiCallback<DetailRecipesResponse>) {
         val call = apiService.getRecipeDetail(id)

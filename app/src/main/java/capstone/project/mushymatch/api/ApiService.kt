@@ -17,7 +17,7 @@ interface ApiService {
     fun getMushroomDetail(@Path("id_jamur") id: Int): Call<DetailMushroomResponse>
 
     @GET("list-recipes/{id_jamur}")
-    fun getRecipes(@Path("id_jamur") id: Int): Call<ListRecipesResponse>
+    fun getRecipes(@Path("id_jamur") id: Int): Call<List<ListRecipesResponseItem>>
 
     @GET("recipes/{id_recipe}")
     fun getRecipeDetail(@Path("id_recipe") id: Int): Call<DetailRecipesResponse>

@@ -1,5 +1,6 @@
 package capstone.project.mushymatch.view.about
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -12,16 +13,25 @@ import capstone.project.mushymatch.R
 import capstone.project.mushymatch.api.ApiConfig
 import capstone.project.mushymatch.api.repository.MushroomRepository
 import capstone.project.mushymatch.databinding.ActivityMushroomInformationBinding
+import capstone.project.mushymatch.view.recipes.list.ListRecipesActivity
 import com.bumptech.glide.Glide
+import com.facebook.shimmer.ShimmerFrameLayout
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
 
 @Suppress("DEPRECATION")
 class MushroomInformationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMushroomInformationBinding
-    private var isDescriptionExpanded = false
+    private var idMushroom = 0
     private var isHabitatExpanded = false
     private lateinit var viewModel: MushroomInformationViewModel
     private lateinit var repository: MushroomRepository
+    private lateinit var shimmerFrameLayout: ShimmerFrameLayout
+    private val coroutineScope = CoroutineScope(Dispatchers.Main)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +41,7 @@ class MushroomInformationActivity : AppCompatActivity() {
 
         val toolbar = binding.toolbar
         setSupportActionBar(toolbar)
+
 
         // Inisialisasi repository
         repository = MushroomRepository(ApiConfig.createApiService())
@@ -47,17 +58,24 @@ class MushroomInformationActivity : AppCompatActivity() {
         viewModel.getMushroomDetail(maxIndex)
 
         //loading
-        showLoading(true)
-        viewModel.mushroomDetail.observe(this) { mushroomDetail ->
-            binding.tvMushroomName.text = mushroomDetail.name
-            binding.tvMushroomScientificName.text = mushroomDetail.latinName
-            binding.tvDescription.text = mushroomDetail.description
-            binding.tvDescHabit.text = mushroomDetail.habitat
-            Glide.with(this)
-                .load(mushroomDetail.picture)
-                .into(binding.imageMushroom)
+//        showLoading(true)
+        shimmerFrameLayout = binding.shimmerViewContainer
+        startShimmer()
+        coroutineScope.launch {
+            delay(2000)
+            viewModel.mushroomDetail.observe(this@MushroomInformationActivity) { mushroomDetail ->
+                idMushroom = mushroomDetail.idJamur
+                binding.tvMushroomName.text = mushroomDetail.name
+                binding.tvMushroomScientificName.text = mushroomDetail.latinName
+                binding.tvDescription.text = mushroomDetail.description
+                binding.tvDescHabit.text = mushroomDetail.habitat
+                Glide.with(this@MushroomInformationActivity)
+                    .load(mushroomDetail.picture)
+                    .into(binding.imageMushroom)
+                stopShimmer()
 
-            showLoading(false)
+            }
+
         }
 
         supportActionBar?.apply {
@@ -72,23 +90,38 @@ class MushroomInformationActivity : AppCompatActivity() {
             toggleHabitat()
         }
 
-//        binding.layoutRecipes.setOnClickListener{
-//            val intent = Intent(this, ListRecipesActivity::class.java)
-//            startActivity(intent)
-//        }
+        binding.layoutRecipes.setOnClickListener{
+            val intent = Intent(this, ListRecipesActivity::class.java)
+            intent.putExtra("idJamur", idMushroom)
+            startActivity(intent)
+        }
 
+    }
+
+    //stop shimmer
+    private fun stopShimmer() {
+        shimmerFrameLayout.stopShimmer()
+        binding.shimmerViewContainer.visibility = View.GONE
+        binding.content.visibility = View.VISIBLE
+    }
+
+    //start shimmer
+    private fun startShimmer() {
+        shimmerFrameLayout.startShimmer()
+        binding.shimmerViewContainer.visibility = View.VISIBLE
+        binding.content.visibility = View.GONE
     }
 
     //loading
-    private fun showLoading(state: Boolean) {
-        if (state) {
-            binding.progressBar.visibility = View.VISIBLE
-            binding.content.visibility = View.GONE
-        } else {
-            binding.progressBar.visibility = View.GONE
-            binding.content.visibility = View.VISIBLE
-        }
-    }
+//    private fun showLoading(state: Boolean) {
+//        if (state) {
+//            binding.progressBar.visibility = View.VISIBLE
+//            binding.content.visibility = View.GONE
+//        } else {
+//            binding.progressBar.visibility = View.GONE
+//            binding.content.visibility = View.VISIBLE
+//        }
+//    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {

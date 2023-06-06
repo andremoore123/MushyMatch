@@ -12,37 +12,38 @@
     >
 
     <ImageView
-        android:id="@+id/ivRecipe"
+        android:id="@+id/img"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginStart="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/sample_mushroom" />
+        android:background="@color/gray_400" />
 
     <TextView
-        android:id="@+id/tv_recipes_name"
+        android:id="@+id/recipes_name"
         android:layout_width="253dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="@string/nama_masakan"
+        android:background="@color/gray_400"
         android:textColor="@color/black"
         android:textSize="18sp"
+
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/ivRecipe"
+        app:layout_constraintStart_toEndOf="@+id/img"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_mushroom_name"
-        android:layout_width="253dp"
+        android:id="@+id/mushroom_name"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="@string/nama_jamur"
+        android:background="@color/gray_300"
         android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/ivRecipe"
-        app:layout_constraintTop_toBottomOf="@+id/tv_recipes_name" />
+        app:layout_constraintStart_toEndOf="@+id/img"
+        app:layout_constraintTop_toBottomOf="@+id/recipes_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
