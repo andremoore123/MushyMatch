@@ -53,7 +53,7 @@ class ListRecipesActivity : AppCompatActivity() {
         startShimmer()
         // Amati perubahan pada LiveData recipes
         coroutineScope.launch {
-            delay(2000)
+            delay(1000)
             viewModel.recipes.observe(this@ListRecipesActivity) { recipes ->
                 adapter.setRecipes(recipes)
                 Log.d("ListRecipesActivity", "recipes: $recipes")

@@ -76,6 +76,10 @@ class DetectionActivity : AppCompatActivity() {
 
         }
 
+        binding.back.setOnClickListener {
+            finish()
+        }
+
 
     }
     @Deprecated("Deprecated in Java")

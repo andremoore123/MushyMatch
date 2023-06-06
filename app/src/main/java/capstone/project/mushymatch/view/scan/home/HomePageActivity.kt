@@ -49,7 +49,7 @@ class HomePageActivity : AppCompatActivity(), MushroomAdapter.OnMushroomClickLis
         startShimmer()
         // Amati perubahan pada LiveData mushrooms
         coroutineScope.launch {
-            delay(2000)
+            delay(1000)
             mushroomViewModel.mushrooms.observe(this@HomePageActivity) { mushrooms ->
                 mushroomAdapter.setMushrooms(mushrooms)
                 stopShimmer()
@@ -84,8 +84,23 @@ class HomePageActivity : AppCompatActivity(), MushroomAdapter.OnMushroomClickLis
         }
 
         // Perbarui daftar jamur pada adapter dengan hasil pencarian
-        filteredMushrooms?.let { mushroomAdapter.setMushrooms(it) }
+        filteredMushrooms?.let { mushrooms ->
+            if (mushrooms.isNotEmpty()) {
+                startShimmer()
+                mushroomAdapter.setMushrooms(emptyList()) // Menghapus item sebelumnya
+
+                coroutineScope.launch {
+                    delay(1000)
+                    mushroomAdapter.setMushrooms(mushrooms) // Menambahkan item hasil pencarian
+                    stopShimmer()
+                }
+            } else {
+                mushroomAdapter.setMushrooms(emptyList()) // Jika hasil pencarian kosong, tampilkan daftar kosong
+                stopShimmer()
+            }
+        }
     }
+
 
 
     private fun startShimmer() {

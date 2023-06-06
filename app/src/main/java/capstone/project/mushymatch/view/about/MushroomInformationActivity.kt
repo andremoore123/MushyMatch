@@ -63,7 +63,7 @@ class MushroomInformationActivity : AppCompatActivity() {
         shimmerFrameLayout = binding.shimmerViewContainer
         startShimmer()
         coroutineScope.launch {
-            delay(2000)
+            delay(1000)
             viewModel.mushroomDetail.observe(this@MushroomInformationActivity) { mushroomDetail ->
                 binding.tvMushroomName.text = mushroomDetail.name
                 binding.tvMushroomScientificName.text = mushroomDetail.latinName
