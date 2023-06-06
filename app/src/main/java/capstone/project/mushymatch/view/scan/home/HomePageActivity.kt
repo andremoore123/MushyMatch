@@ -3,6 +3,8 @@ package capstone.project.mushymatch.view.scan.home
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import capstone.project.mushymatch.api.ApiConfig
@@ -23,6 +25,8 @@ class HomePageActivity : AppCompatActivity(), MushroomAdapter.OnMushroomClickLis
     private lateinit var mushroomAdapter: MushroomAdapter
     private lateinit var mushroomViewModel: MushroomViewModel
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
+    private var searchQuery: String = ""
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,12 +57,36 @@ class HomePageActivity : AppCompatActivity(), MushroomAdapter.OnMushroomClickLis
         }
 
         mushroomAdapter.setOnMushroomClickListener(this)
-        
+
         binding.btnScan.setOnClickListener {
             val intent = Intent(this, DetectionActivity::class.java)
             startActivity(intent)
         }
+
+        binding.searchView.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                val query = s.toString()
+                performSearch(query)
+            }
+        })
+
     }
+
+    internal fun performSearch(query: String) {
+        // Lakukan pencarian sesuai dengan query
+        // Misalnya, filter daftar jamur berdasarkan query nama
+        val filteredMushrooms = mushroomViewModel.mushrooms.value?.filter { mushroom ->
+            mushroom.name.contains(query, ignoreCase = true)
+        }
+
+        // Perbarui daftar jamur pada adapter dengan hasil pencarian
+        filteredMushrooms?.let { mushroomAdapter.setMushrooms(it) }
+    }
+
 
     private fun startShimmer() {
         binding.shimmerViewContainer.startShimmer()

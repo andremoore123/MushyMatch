@@ -11,6 +11,7 @@ import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
+import capstone.project.mushymatch.view.scan.home.HomePageActivity
 
 class CustomSearchView @JvmOverloads constructor(
     context: Context,
@@ -23,6 +24,7 @@ class CustomSearchView @JvmOverloads constructor(
     private val cornerRadius = 5f
     private val rect = RectF()
     private var searchIcon: Drawable? = null
+    private var searchQuery: String = ""
 
     init {
         backgroundPaint.color = Color.WHITE
@@ -74,7 +76,9 @@ class CustomSearchView @JvmOverloads constructor(
     }
 
     private fun performSearch(query: String) {
-        // Implementasikan logika pencarian di sini
-        // Misalnya, dapat melakukan pencarian ke basis data atau meng-update tampilan sesuai dengan hasil pencarian
+        searchQuery = query
+        // Panggil method atau fungsi yang akan meng-handle logika pencarian di HomePageActivity
+        (context as? HomePageActivity)?.performSearch(query)
     }
+
 }
