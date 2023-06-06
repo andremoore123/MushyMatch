@@ -34,6 +34,7 @@ class MushroomInformationActivity : AppCompatActivity() {
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMushroomInformationBinding.inflate(layoutInflater)
@@ -64,7 +65,6 @@ class MushroomInformationActivity : AppCompatActivity() {
         coroutineScope.launch {
             delay(2000)
             viewModel.mushroomDetail.observe(this@MushroomInformationActivity) { mushroomDetail ->
-                idMushroom = mushroomDetail.idJamur
                 binding.tvMushroomName.text = mushroomDetail.name
                 binding.tvMushroomScientificName.text = mushroomDetail.latinName
                 binding.tvDescription.text = mushroomDetail.description
@@ -72,7 +72,9 @@ class MushroomInformationActivity : AppCompatActivity() {
                 Glide.with(this@MushroomInformationActivity)
                     .load(mushroomDetail.picture)
                     .into(binding.imageMushroom)
+                idMushroom = mushroomDetail.idJamur
                 stopShimmer()
+
 
             }
 
@@ -112,16 +114,6 @@ class MushroomInformationActivity : AppCompatActivity() {
         binding.content.visibility = View.GONE
     }
 
-    //loading
-//    private fun showLoading(state: Boolean) {
-//        if (state) {
-//            binding.progressBar.visibility = View.VISIBLE
-//            binding.content.visibility = View.GONE
-//        } else {
-//            binding.progressBar.visibility = View.GONE
-//            binding.content.visibility = View.VISIBLE
-//        }
-//    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {

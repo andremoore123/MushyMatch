@@ -10,8 +10,8 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface ApiService {
-//    @GET("get-jamur")
-//    fun getMushrooms(): Call<GetMushroomResponse>
+    @GET("get-jamur")
+    fun getMushrooms(): Call<List<GetMushroomResponseItem>>
 
     @GET("jamur/{id_jamur}")
     fun getMushroomDetail(@Path("id_jamur") id: Int): Call<DetailMushroomResponse>

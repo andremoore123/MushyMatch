@@ -3,6 +3,8 @@ package capstone.project.mushymatch.api.repository
 import android.util.Log
 import capstone.project.mushymatch.api.ApiService
 import capstone.project.mushymatch.api.response.mushroom.DetailMushroomResponse
+import capstone.project.mushymatch.api.response.mushroom.GetMushroomResponse
+import capstone.project.mushymatch.api.response.mushroom.GetMushroomResponseItem
 import capstone.project.mushymatch.api.response.recipe.DetailRecipesResponse
 import capstone.project.mushymatch.api.response.recipe.ListRecipesResponse
 import capstone.project.mushymatch.api.response.recipe.ListRecipesResponseItem
@@ -11,27 +13,28 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MushroomRepository(private val apiService: ApiService) {
+    fun getMushrooms(callback: ApiCallback<List<GetMushroomResponseItem>>) {
+        val call = apiService.getMushrooms()
+        call.enqueue(object : Callback<List<GetMushroomResponseItem>> {
+            override fun onResponse(
+                call: Call<List<GetMushroomResponseItem>>,
+                response: Response<List<GetMushroomResponseItem>>
+            ) {
+                if (response.isSuccessful) {
+                    val recipesResponse = response.body()
+                    recipesResponse?.let { callback.onSuccess(it) }
+                    Log.d("MushroomRepository", "Success to fetch recipes")
+                } else {
+                    callback.onError("Failed to fetch recipes")
+                    Log.d("MushroomRepository", "Failed to fetch recipes")
+                }
+            }
 
-//    fun getMushrooms(callback: ApiCallback<GetMushroomResponse>) {
-//        val call = apiService.getMushrooms()
-//        call.enqueue(object : Callback<GetMushroomResponse> {
-//            override fun onResponse(
-//                call: Call<GetMushroomResponse>,
-//                response: Response<GetMushroomResponse>
-//            ) {
-//                if (response.isSuccessful) {
-//                    val mushroomResponse = response.body()
-//                    mushroomResponse?.let { callback.onSuccess(it) }
-//                } else {
-//                    callback.onError("Failed to fetch mushrooms")
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<GetMushroomResponse>, t: Throwable) {
-//                callback.onError(t.message ?: "Error occurred")
-//            }
-//        })
-//    }
+            override fun onFailure(call: Call<List<GetMushroomResponseItem>>, t: Throwable) {
+                callback.onError(t.message ?: "Error occurred")
+            }
+        })
+    }
 
     fun getMushroomDetail(id: Int, callback: ApiCallback<DetailMushroomResponse>) {
         val call = apiService.getMushroomDetail(id)
