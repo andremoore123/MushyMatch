@@ -52,9 +52,8 @@
 
         <capstone.project.mushymatch.view.custom.search.CustomSearchView
             android:id="@+id/searchView"
-            android:layout_width="318dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="16dp"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:hint="@string/search"
@@ -62,8 +61,10 @@
             android:textAlignment="gravity"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="@+id/guideline8"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.441" />
 
         <ImageButton
             android:id="@+id/btn_scan"
@@ -77,6 +78,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/searchView"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.8" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.04" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

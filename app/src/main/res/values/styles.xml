@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <style name="AppTheme.ActionBar" parent="Widget.AppCompat.ActionBar">
         <item name="android:paddingStart">8dp</item> <!-- Sesuaikan padding start yang diinginkan -->
         <item name="android:paddingEnd">8dp</item> <!-- Sesuaikan padding end yang diinginkan -->
@@ -9,5 +9,8 @@
     <style name="AppTheme.BackButton" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:padding">8dp</item> <!-- Sesuaikan ukuran padding yang diinginkan -->
     </style>
+
+
+
 
 </resources>
