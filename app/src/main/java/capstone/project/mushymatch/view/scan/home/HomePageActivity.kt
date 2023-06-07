@@ -86,10 +86,11 @@ class HomePageActivity : AppCompatActivity(), MushroomAdapter.OnMushroomClickLis
         // Perbarui daftar jamur pada adapter dengan hasil pencarian
         filteredMushrooms?.let { mushrooms ->
             if (mushrooms.isNotEmpty()) {
-                startShimmer()
                 mushroomAdapter.setMushrooms(emptyList()) // Menghapus item sebelumnya
-
                 coroutineScope.launch {
+                    binding.rvMushrooms.visibility = android.view.View.GONE
+                    binding.shimmerViewContainer.visibility = android.view.View.VISIBLE
+                    startShimmer()
                     delay(1000)
                     mushroomAdapter.setMushrooms(mushrooms) // Menambahkan item hasil pencarian
                     stopShimmer()
