@@ -36,4 +36,7 @@
     <string name="import_image">import image</string>
     <string name="ambil_gambar">ambil gambar</string>
     <string name="kembali">kembali</string>
+    <string name="togglebutton">ToggleButton</string>
+    <string name="button">Button</string>
+    <string name="video_tutorial">Video Tutorial</string>
 </resources>

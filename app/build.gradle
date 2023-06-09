@@ -82,6 +82,24 @@ dependencies {
     implementation 'org.tensorflow:tensorflow-lite-gpu:2.5.0'
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
+    //dependency for exoplayer
+    implementation 'com.google.android.exoplayer:exoplayer:2.18.7'
+
+    // for core support in exoplayer.
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.18.7'
+
+    // for adding dash support in our exoplayer.
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.18.7'
+
+    // for adding hls support in exoplayer.
+    implementation 'com.google.android.exoplayer:exoplayer-hls:2.18.7'
+
+    // for smooth streaming of video in our exoplayer.
+    implementation 'com.google.android.exoplayer:exoplayer-smoothstreaming:2.18.7'
+
+    // for generating default ui of exoplayer
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.18.7'
+
 
 
 
