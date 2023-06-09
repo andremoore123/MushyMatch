@@ -1,5 +1,6 @@
 package capstone.project.mushymatch.view.recipes.list
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,19 +11,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import capstone.project.mushymatch.R
 import capstone.project.mushymatch.api.ApiConfig
 import capstone.project.mushymatch.api.repository.MushroomRepository
+import capstone.project.mushymatch.api.response.recipe.ListRecipesResponseItem
 import capstone.project.mushymatch.databinding.ActivityListRecipesBinding
+import capstone.project.mushymatch.view.recipes.detail.CookingRecipesActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Suppress("DEPRECATION")
-class ListRecipesActivity : AppCompatActivity() {
+class ListRecipesActivity : AppCompatActivity(), RecipeAdapter.OnRecipeClickListener {
 
     private lateinit var binding: ActivityListRecipesBinding
     private lateinit var viewModel: RecipeViewModel
     private lateinit var adapter: RecipeAdapter
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +53,7 @@ class ListRecipesActivity : AppCompatActivity() {
         adapter = RecipeAdapter()
         binding.rvRecipes.layoutManager = LinearLayoutManager(this)
         binding.rvRecipes.adapter = adapter
+        adapter.setOnRecipeClickListener(this)
 
         startShimmer()
         // Amati perubahan pada LiveData recipes
@@ -95,4 +100,11 @@ class ListRecipesActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    override fun onRecipeClick(recipe: ListRecipesResponseItem) {
+        val intent = Intent(this, CookingRecipesActivity::class.java)
+        intent.putExtra("recipe_id", recipe.idRecipe) // Menggunakan key "recipe_id"
+        startActivity(intent)
+    }
+
 }

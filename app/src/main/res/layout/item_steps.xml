@@ -4,16 +4,16 @@
     android:layout_height="wrap_content"
     android:padding="16dp"
     android:orientation="vertical"
+    android:layout_marginBottom="4dp"
     android:background="@drawable/custom_steps_bg">
 
     <TextView
-        android:id="@+id/tv_ingredient_name"
+        android:id="@+id/tv_steps"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/step"
         android:textSize="14sp"
         android:textColor="@color/white"
-
         />
 
 

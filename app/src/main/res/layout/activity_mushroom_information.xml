@@ -70,7 +70,7 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -136,7 +136,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:background="@color/gray_200"
+                android:background="@color/smith_apple"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="8dp"
                 android:text="@string/desc"
@@ -153,34 +153,18 @@
                 android:text="@string/description"
                 android:textSize="14sp" />
 
-            <RelativeLayout
-                android:id="@+id/layout_habitat"
+            <TextView
+                android:id="@+id/tv_habitat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@color/gray_100"
-                android:paddingHorizontal="8dp">
-
-                <TextView
-                    android:id="@+id/tv_habitat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/gray_200"
-                    android:paddingVertical="8dp"
-                    android:text="@string/habitat"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/iv_habitat"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="12dp"
-                    android:contentDescription="@string/more"
-                    android:src="@drawable/ic_down" />
-            </RelativeLayout>
+                android:layout_marginTop="14dp"
+                android:background="@color/smith_apple"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="8dp"
+                android:text="@string/habitat"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_desc_habit"
@@ -189,8 +173,46 @@
                 android:background="@color/gray_100"
                 android:paddingHorizontal="8dp"
                 android:text="@string/description"
-                android:textSize="14sp"
-                android:visibility="gone" />
+                android:textSize="14sp" />
+
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/layout_habitat"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:background="@color/gray_100"-->
+<!--                android:paddingHorizontal="8dp">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_habitat"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@color/gray_200"-->
+<!--                    android:paddingVertical="8dp"-->
+<!--                    android:text="@string/habitat"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="24sp"-->
+<!--                    android:textStyle="bold" />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/iv_habitat"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_marginEnd="12dp"-->
+<!--                    android:contentDescription="@string/more"-->
+<!--                    android:src="@drawable/ic_down" />-->
+<!--            </RelativeLayout>-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tv_desc_habit"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@color/gray_100"-->
+<!--                android:paddingHorizontal="8dp"-->
+<!--                android:text="@string/description"-->
+<!--                android:textSize="14sp"-->
+<!--                android:visibility="gone" />-->
 
             <RelativeLayout
                 android:id="@+id/layout_recipes"

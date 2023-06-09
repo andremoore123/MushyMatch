@@ -87,10 +87,10 @@ class MushroomInformationActivity : AppCompatActivity() {
         }
 
 
-        binding.ivHabitat.isVisible = true
-        binding.layoutHabitat.setOnClickListener{
-            toggleHabitat()
-        }
+//        binding.ivHabitat.isVisible = true
+//        binding.layoutHabitat.setOnClickListener{
+//            toggleHabitat()
+//        }
 
         binding.layoutRecipes.setOnClickListener{
             val intent = Intent(this, ListRecipesActivity::class.java)
@@ -127,24 +127,24 @@ class MushroomInformationActivity : AppCompatActivity() {
 
 
     //toggleHabitat
-    private fun toggleHabitat() {
-        if (isHabitatExpanded) {
-            // Contract description
-            val rotateUpAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate_180_reverse)
-            rotateUpAnimation.fillAfter = true
-            binding.ivHabitat.startAnimation(rotateUpAnimation)
-            binding.tvDescHabit.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_up))
-            binding.tvDescHabit.visibility = View.GONE
-        } else {
-            // Expand description
-            val rotateDownAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate_180) // Updated animation
-            rotateDownAnimation.fillAfter = true
-            binding.ivHabitat.startAnimation(rotateDownAnimation)
-            binding.tvDescHabit.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_down))
-            binding.tvDescHabit.visibility = View.VISIBLE
-        }
-
-        isHabitatExpanded = !isHabitatExpanded
-    }
+//    private fun toggleHabitat() {
+//        if (isHabitatExpanded) {
+//            // Contract description
+//            val rotateUpAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate_180_reverse)
+//            rotateUpAnimation.fillAfter = true
+//            binding.ivHabitat.startAnimation(rotateUpAnimation)
+//            binding.tvDescHabit.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_up))
+//            binding.tvDescHabit.visibility = View.GONE
+//        } else {
+//            // Expand description
+//            val rotateDownAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate_180) // Updated animation
+//            rotateDownAnimation.fillAfter = true
+//            binding.ivHabitat.startAnimation(rotateDownAnimation)
+//            binding.tvDescHabit.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_down))
+//            binding.tvDescHabit.visibility = View.VISIBLE
+//        }
+//
+//        isHabitatExpanded = !isHabitatExpanded
+//    }
 
 }

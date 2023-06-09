@@ -7,11 +7,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import capstone.project.mushymatch.api.response.recipe.ListRecipesResponseItem
 import capstone.project.mushymatch.databinding.ItemRecipesBinding
+import capstone.project.mushymatch.view.scan.home.MushroomAdapter
 import com.bumptech.glide.Glide
 
 class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
     private val recipes: MutableList<ListRecipesResponseItem> = mutableListOf()
+    private var clickListener: OnRecipeClickListener? = null
+
+    fun setOnRecipeClickListener(listener: OnRecipeClickListener) {
+        clickListener = listener
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     fun setRecipes(newRecipes: List<ListRecipesResponseItem>) {
@@ -36,6 +42,9 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
         return recipes.size
     }
 
+    interface OnRecipeClickListener {
+        fun onRecipeClick(recipe: ListRecipesResponseItem)
+    }
     inner class RecipeViewHolder(private val binding: ItemRecipesBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -47,6 +56,11 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
                 .load(recipe.pictRecipe)
                 .into(binding.ivRecipe)
             Log.d("RecipeAdapter", "bind: ${recipe.pictRecipe}")
+
+            itemView.setOnClickListener {
+                clickListener?.onRecipeClick(recipe)
+            }
         }
+
     }
 }
