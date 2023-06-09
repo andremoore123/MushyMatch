@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingHorizontal="16dp"
     tools:context=".view.recipes.detail.CookingRecipesActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -20,7 +19,29 @@
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/black" />
 
-    <ScrollView
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_view_container"
+        android:paddingHorizontal="16dp"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:shimmer_auto_start="true"
+        app:shimmer_base_alpha="0.3"
+        app:shimmer_direction="left_to_right"
+        app:shimmer_duration="500"
+        app:shimmer_repeat_count="@android:integer/config_shortAnimTime"
+        app:shimmer_repeat_delay="500"
+        app:shimmer_shape="linear"
+        app:shimmer_tilt="0">
+
+        <include layout="@layout/layout_cooking_recipes"/>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/content"
+        android:visibility="gone"
+        android:paddingHorizontal="16dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -75,7 +96,7 @@
             <LinearLayout
                 android:id="@+id/layout_ingredients"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="8dp"
                 android:paddingHorizontal="16dp"
                 android:background="@drawable/custom_ingredients_bg"
@@ -100,7 +121,7 @@
             <LinearLayout
                 android:id="@+id/layout_steps"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="8dp"
                 android:paddingHorizontal="16dp"
                 android:background="@drawable/custom_ingredients_bg"
@@ -124,6 +145,6 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

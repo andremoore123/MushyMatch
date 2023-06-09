@@ -27,7 +27,6 @@ class MushroomInformationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMushroomInformationBinding
     private var idMushroom = 0
-    private var isHabitatExpanded = false
     private lateinit var viewModel: MushroomInformationViewModel
     private lateinit var repository: MushroomRepository
     private lateinit var shimmerFrameLayout: ShimmerFrameLayout
