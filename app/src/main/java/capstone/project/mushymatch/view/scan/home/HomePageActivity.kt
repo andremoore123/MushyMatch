@@ -14,6 +14,7 @@ import capstone.project.mushymatch.api.response.mushroom.GetMushroomResponseItem
 
 import capstone.project.mushymatch.databinding.ActivityHomePageBinding
 import capstone.project.mushymatch.view.about.MushroomInformationActivity
+import capstone.project.mushymatch.view.profil.ProfilActivity
 import capstone.project.mushymatch.view.scan.DetectionActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -57,6 +58,11 @@ class HomePageActivity : AppCompatActivity(), MushroomAdapter.OnMushroomClickLis
         }
 
         mushroomAdapter.setOnMushroomClickListener(this)
+
+        binding.ivLogo.setOnClickListener{
+            val intent = Intent(this, ProfilActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.btnScan.setOnClickListener {
             val intent = Intent(this, DetectionActivity::class.java)

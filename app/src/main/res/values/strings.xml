@@ -39,4 +39,6 @@
     <string name="togglebutton">ToggleButton</string>
     <string name="button">Button</string>
     <string name="video_tutorial">Video Tutorial</string>
+    <string name="email">Email</string>
+    <string name="logout">Logout</string>
 </resources>
