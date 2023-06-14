@@ -11,7 +11,7 @@ import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
-import capstone.project.mushymatch.view.scan.home.HomePageActivity
+import capstone.project.mushymatch.view.home.HomePageActivity
 
 class CustomSearchView @JvmOverloads constructor(
     context: Context,

@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import capstone.project.mushymatch.databinding.ActivitySplashBinding
 import capstone.project.mushymatch.view.login.loginActivity
-import capstone.project.mushymatch.view.scan.home.HomePageActivity
+import capstone.project.mushymatch.view.home.HomePageActivity
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase

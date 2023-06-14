@@ -29,7 +29,7 @@
         android:theme="@style/Theme.MushyMatch"
         tools:targetApi="31">
         <activity
-            android:name=".ProfilActivity"
+            android:name=".view.logout.LogoutActivity"
             android:exported="false" />
         <activity
             android:name=".view.splash.SplashActivity"
@@ -44,13 +44,10 @@
             android:name=".view.login.loginActivity"
             android:exported="true" />
         <activity
-            android:name=".view.profil.ProfilActivity"
-            android:exported="true" />
-        <activity
             android:name=".view.scan.DetectionActivity"
             android:exported="false" />
         <activity
-            android:name=".view.scan.home.HomePageActivity"
+            android:name=".view.home.HomePageActivity"
             android:exported="true" />
         <activity
             android:name=".view.register.RegisterActivity"
@@ -64,15 +61,6 @@
         <activity
             android:name=".view.about.MushroomInformationActivity"
             android:exported="false" />
-        <activity
-            android:name=".view.scan.ResultActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.scan.CameraActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.dashboard.DashboardActivity"
-            android:exported="true" />
         <activity
             android:name=".view.MainActivity"
             android:exported="true" />

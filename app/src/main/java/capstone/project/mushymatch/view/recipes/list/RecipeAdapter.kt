@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import capstone.project.mushymatch.api.response.recipe.ListRecipesResponseItem
 import capstone.project.mushymatch.databinding.ItemRecipesBinding
-import capstone.project.mushymatch.view.scan.home.MushroomAdapter
+import capstone.project.mushymatch.view.home.MushroomAdapter
 import com.bumptech.glide.Glide
 
 class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {

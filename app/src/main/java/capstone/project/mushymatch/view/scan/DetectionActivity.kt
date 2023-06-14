@@ -49,8 +49,8 @@ class DetectionActivity : AppCompatActivity() {
         if (!allPermissionsGranted()) {
             ActivityCompat.requestPermissions(
                 this,
-                CameraActivity.REQUIRED_PERMISSIONS,
-                CameraActivity.REQUEST_CODE_PERMISSIONS
+                REQUIRED_PERMISSIONS,
+                REQUEST_CODE_PERMISSIONS
             )
         }
 
@@ -158,7 +158,7 @@ class DetectionActivity : AppCompatActivity() {
     }
 
 
-    private fun allPermissionsGranted() = CameraActivity.REQUIRED_PERMISSIONS.all { permission ->
+    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all { permission ->
         ContextCompat.checkSelfPermission(baseContext, permission) == PackageManager.PERMISSION_GRANTED
     }
 
@@ -286,6 +286,8 @@ class DetectionActivity : AppCompatActivity() {
 
 
     companion object {
+        internal val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+        internal const val REQUEST_CODE_PERMISSIONS = 10
         private const val REQUEST_IMAGE_CAPTURE = 1001
         private const val TAG = "DetectionActivity"
     }

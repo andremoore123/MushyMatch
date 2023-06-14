@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import capstone.project.mushymatch.databinding.ActivityLoginBinding
 import capstone.project.mushymatch.view.register.RegisterActivity
-import capstone.project.mushymatch.view.scan.home.HomePageActivity
+import capstone.project.mushymatch.view.home.HomePageActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class loginActivity : AppCompatActivity() {

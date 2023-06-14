@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import capstone.project.mushymatch.databinding.ActivityMainBinding
-import capstone.project.mushymatch.view.scan.CameraActivity
 import capstone.project.mushymatch.view.scan.DetectionActivity
 
 class MainActivity : AppCompatActivity() {

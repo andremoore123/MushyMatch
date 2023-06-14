@@ -85,19 +85,6 @@
         app:layout_constraintTop_toBottomOf="@+id/username"
         tools:ignore="Autofill,HardcodedText,SpeakableTextPresentCheck,TextFields,VisualLintTextFieldSize" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="3dp"
-        android:text="Forgot Passsword?"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="13sp"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/password"
-        tools:ignore="HardcodedText,MissingConstraints" />
-
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
@@ -107,23 +94,23 @@
         android:text="Login"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:layout_constraintVertical_bias="0.141"
+        app:layout_constraintTop_toBottomOf="@+id/password"
+        app:layout_constraintVertical_bias="0.319"
         tools:ignore="HardcodedText,MissingConstraints,VisualLintButtonSize"
-        tools:layout_editor_absoluteX="25dp" />
+        tools:layout_editor_absoluteX="34dp" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="85dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/raleway"
         android:text="Belum punya akun?"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="13sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginStart="85dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
@@ -131,13 +118,13 @@
         android:id="@+id/textRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/ralewaybold"
-        android:text="Register"
+        android:text="@string/register"
+        android:textColor="@color/black"
         android:textSize="14sp"
         android:textStyle="italic|bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="95dp"
-        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 </androidx.constraintlayout.widget.ConstraintLayout>
