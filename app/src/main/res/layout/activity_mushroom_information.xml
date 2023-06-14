@@ -122,7 +122,7 @@
                 android:background="@drawable/lb_edible"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="4dp"
-                android:text="@string/edible"
+                android:text="@string/status"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 android:textStyle="bold"

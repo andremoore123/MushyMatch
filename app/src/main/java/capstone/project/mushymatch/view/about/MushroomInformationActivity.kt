@@ -31,6 +31,7 @@ class MushroomInformationActivity : AppCompatActivity() {
     private lateinit var repository: MushroomRepository
     private lateinit var shimmerFrameLayout: ShimmerFrameLayout
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
+    private var status = ""
 
 
 
@@ -74,8 +75,25 @@ class MushroomInformationActivity : AppCompatActivity() {
                 idMushroom = mushroomDetail.idJamur
                 stopShimmer()
 
+                if (mushroomDetail.status == "Edible") {
+                    binding.tvStatus.text = mushroomDetail.status
+                    binding.tvStatus.setBackgroundColor(resources.getColor(R.color.sea_green))
+                } else {
+                    binding.tvStatus.text = mushroomDetail.status
+                    binding.tvStatus.setBackgroundColor(resources.getColor(R.color.orange_soda))
+                    binding.layoutRecipes.visibility = View.GONE
 
+                }
             }
+
+        }
+
+        if (status == "Edible") {
+            binding.tvStatus.text = status
+            binding.tvStatus.setBackgroundColor(resources.getColor(R.color.smith_apple))
+        } else {
+            binding.tvStatus.text = status
+            binding.tvStatus.setBackgroundColor(resources.getColor(R.color.orange_soda))
 
         }
 
