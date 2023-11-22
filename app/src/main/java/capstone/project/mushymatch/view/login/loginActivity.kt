@@ -4,7 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import capstone.project.mushymatch.api.repository.AuthRepository
 import capstone.project.mushymatch.databinding.ActivityLoginBinding
+import capstone.project.mushymatch.view.about.MushroomInformationViewModel
+import capstone.project.mushymatch.view.about.MushroomInformationViewModelFactory
 import capstone.project.mushymatch.view.register.RegisterActivity
 import capstone.project.mushymatch.view.home.HomePageActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -12,13 +16,17 @@ import com.google.firebase.auth.FirebaseAuth
 class loginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var viewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        auth = FirebaseAuth.getInstance()
+        val repository = AuthRepository()
+        val viewModelFactory = LoginViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
+
 
         binding.btnLogin.setOnClickListener {
             val username = binding.username.text.toString()
@@ -36,30 +44,28 @@ class loginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            loginFirebase(username, password)
+            viewModel.login(username, password)
         }
 
         binding.textRegister.setOnClickListener {
             val register = Intent(this, RegisterActivity::class.java)
             startActivity(register)
         }
-    }
 
-    private fun loginFirebase(username: String, password: String) {
-        if (username.isNotEmpty() && password.isNotEmpty()) {
-            auth.signInWithEmailAndPassword(username, password)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        val user = auth.currentUser
-                        if (user != null) {
-                            Toast.makeText(this, "Selamat Datang ", Toast.LENGTH_LONG).show()
-                        }
-                        val intent = Intent(this, HomePageActivity::class.java)
-                        startActivity(intent)
-                    } else {
-                        Toast.makeText(this, "Email atau Password Salah", Toast.LENGTH_LONG).show()
-                    }
-                }
+        viewModel.message.observe(this) {
+            showToastMessage(it)
+        }
+
+        viewModel.isError.observe(this) {
+            if (!it) {
+                val intent = Intent(this, HomePageActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
+
+    private fun showToastMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
 }
