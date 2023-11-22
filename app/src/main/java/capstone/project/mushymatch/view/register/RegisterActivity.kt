@@ -5,13 +5,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import capstone.project.mushymatch.api.repository.AuthRepository
 import capstone.project.mushymatch.databinding.ActivityRegisterBinding
+import capstone.project.mushymatch.view.home.HomePageActivity
+import capstone.project.mushymatch.view.login.LoginViewModel
+import capstone.project.mushymatch.view.login.LoginViewModelFactory
 import capstone.project.mushymatch.view.login.loginActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
-    private lateinit var auth: FirebaseAuth
+    private lateinit var viewModel: RegisterViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +24,11 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        auth = FirebaseAuth.getInstance()
+        val repository = AuthRepository()
+        val viewModelFactory = RegisterViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, viewModelFactory)[RegisterViewModel::class.java]
+
+
 
         binding.btnregister.setOnClickListener{
             val nama = binding.username.text.toString()
@@ -56,26 +65,28 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            registerFirebase(emailText, passwordText)
+            viewModel.register(emailText, passwordText)
         }
 
         binding.btnMasuk.setOnClickListener {
             val login = Intent(this, loginActivity::class.java)
             startActivity(login)
         }
-    }
 
-    private fun registerFirebase(emailText: String, passwordText: String) {
-        auth.createUserWithEmailAndPassword(emailText, passwordText)
-            .addOnCompleteListener(this) {
-                if (it.isSuccessful) {
-                    Toast.makeText(this, "Pendaftaran Berhasil", Toast.LENGTH_LONG).show()
-                    val intent = Intent(this, loginActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                } else {
-                    Toast.makeText(this, "${it.exception?.message}", Toast.LENGTH_LONG).show()
-                }
+        viewModel.message.observe(this) {
+            showToastMessage(it)
+        }
+
+        viewModel.isError.observe(this) {
+            if (!it) {
+                val intent = Intent(this, loginActivity::class.java)
+                startActivity(intent)
+                finish()
             }
+        }
+
+    }
+    private fun showToastMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 }
