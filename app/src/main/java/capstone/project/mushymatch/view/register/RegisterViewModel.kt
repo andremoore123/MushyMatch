@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import capstone.project.mushymatch.api.repository.AuthRepository
-import capstone.project.mushymatch.view.login.LoginViewModel
+import capstone.project.mushymatch.api.repository.Result
+import kotlinx.coroutines.launch
 
 
 /*
@@ -22,11 +24,18 @@ class RegisterViewModel(
     private val _message = MutableLiveData<String>()
     val message: LiveData<String> = _message
     fun register(email: String, password: String) {
-        repository.register(email = email, password = password, callback = {
-            _isError.value = it.isError
-            _message.value = it.message
+        viewModelScope.launch {
+            when (val response = repository.register(email = email, password = password)) {
+                is Result.Error -> {
+                    _isError.value = true
+                    _message.value = response.message
+                }
+                is Result.Success -> {
+                    _isError.value = false
+                    _message.value = response.response.message
+                }
+            }
         }
-        )
     }
 }
 

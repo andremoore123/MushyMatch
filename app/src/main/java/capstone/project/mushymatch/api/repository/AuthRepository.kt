@@ -5,6 +5,7 @@ import android.widget.Toast
 import capstone.project.mushymatch.view.home.HomePageActivity
 import capstone.project.mushymatch.view.login.loginActivity
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.tasks.await
 
 
 /*
@@ -12,40 +13,30 @@ import com.google.firebase.auth.FirebaseAuth
    andremoore431@gmail.com
 */
 
-class AuthRepository: IAuthRepository {
+class AuthRepository : IAuthRepository {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    override fun login(username: String, password: String, callback: (AuthResponse) -> Unit) {
-        auth.signInWithEmailAndPassword(username, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val user = auth.currentUser
-                    if (user != null) {
-                        callback(AuthResponse(isError = false, message = "Selamat Datang"))
-                    } else {
-                        // Handle the case when the user is null
-                        callback(AuthResponse(isError = true, message = "User is null"))
-                    }
-                } else {
-                    callback(AuthResponse(isError = true, message = "Email atau Password Salah"))
-                }
-            }
-    }
-    override fun register(email: String, password: String, callback: (AuthResponse) -> Unit) {
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    // Registration successful
-                    callback(AuthResponse(isError = false, message = "Pendaftaran Berhasil"))
-                } else {
-                    // Registration failed
-                    val errorMessage = task.exception?.message ?: "Unknown error"
-                    callback(AuthResponse(isError = true, message = errorMessage))
-                }
-        }
-    }
-}
 
-interface IAuthRepository {
-    fun register(email: String, password: String, callback: (AuthResponse) -> Unit)
-    fun login(username: String, password: String, callback: (AuthResponse) -> Unit)
+    override suspend fun login(username: String, password: String): Result<AuthResponse> = try {
+        val authResult = auth.signInWithEmailAndPassword(username, password).await()
+        val user = authResult.user
+
+        if (user != null) {
+            Result.Success(AuthResponse(isError = false, message = "Selamat Datang"))
+        } else {
+            Result.Error("User is null")
+        }
+    } catch (e: Exception) {
+        Result.Error("Email atau Password Salah")
+    }
+
+    override suspend fun register(email: String, password: String): Result<AuthResponse> = try {
+        auth.createUserWithEmailAndPassword(email, password).await()
+        Result.Success(AuthResponse(isError = false, message = "Pendaftaran Berhasil"))
+    } catch (e: Exception) {
+        val errorMessage = e.message ?: "Unknown error"
+        Result.Error(message = errorMessage)
+    }
 }
+interface IAuthRepository {
+    suspend fun login(username: String, password: String): Result<AuthResponse>
+    suspend fun register(email: String, password: String): Result<AuthResponse>}

@@ -70,12 +70,4 @@ interface IMushroomRepository {
     suspend fun getRecipeDetail(id: Int): Result<DetailRecipesResponse>
 }
 
-interface ApiCallback<T> {
-    fun onSuccess(response: T)
-    fun onError(errorMessage: String)
-}
 
-sealed class Result<T> {
-    data class Success<T>(val response: T): Result<T>()
-    data class Error<Nothing>(val message: String): Result<Nothing>()
-}
