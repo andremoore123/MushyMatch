@@ -12,9 +12,9 @@ import com.google.firebase.auth.FirebaseAuth
    andremoore431@gmail.com
 */
 
-class AuthRepository {
+class AuthRepository: IAuthRepository {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    fun login(username: String, password: String, callback: (AuthResponse) -> Unit) {
+    override fun login(username: String, password: String, callback: (AuthResponse) -> Unit) {
         auth.signInWithEmailAndPassword(username, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -30,7 +30,7 @@ class AuthRepository {
                 }
             }
     }
-    fun register(email: String, password: String, callback: (AuthResponse) -> Unit) {
+    override fun register(email: String, password: String, callback: (AuthResponse) -> Unit) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -43,4 +43,9 @@ class AuthRepository {
                 }
         }
     }
+}
+
+interface IAuthRepository {
+    fun register(email: String, password: String, callback: (AuthResponse) -> Unit)
+    fun login(username: String, password: String, callback: (AuthResponse) -> Unit)
 }
