@@ -1,12 +1,15 @@
 package capstone.project.mushymatch.api.repository
 
 import com.nhaarman.mockitokotlin2.whenever
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class AuthRepositoryTest {
 
     @Mock
@@ -18,71 +21,53 @@ class AuthRepositoryTest {
     }
 
     @Test
-    fun loginWithCorrectCredentials() {
+    fun `When Login With Correct Credentials Should Return Success`() {
         // Given
         val email = "test@example.com"
         val password = "password"
-        val expectedResponse = AuthResponse(isError = false, message = "Login successful")
-        whenever(authRepository.login(email,password, {})).thenAnswer {
-            val completion = it.getArgument<((callback: AuthResponse) -> Unit)>(1)
-            completion.invoke(expectedResponse)
+        val expectedResponse = Result.Success(AuthResponse(isError = false, message = "Login successful"))
+        runTest {
+            whenever(authRepository.login(email, password)).thenReturn(expectedResponse)
+            val response = authRepository.login(email, password)
+            assertEquals(expectedResponse, response)
         }
-
-        authRepository.login(email, password) {
-            assertEquals(expectedResponse, it)
+    }
+    @Test
+    fun `When Login With Incorrect Credentials Should Return Error`() {
+        // Given
+        val email = "test@example.com"
+        val falsePassword = "12345"
+        val expectedResponse = Result.Error<AuthResponse>("Invalid credentials")
+        runTest {
+            whenever(authRepository.login(email, falsePassword)).thenReturn(expectedResponse)
+            val response = authRepository.login(email, falsePassword)
+            assertEquals(expectedResponse, response)
         }
     }
 
     @Test
-    fun loginWithIncorrectCredentials() {
+    fun `When Register With New Email Should Return Success`() {
         // Given
         val email = "test@example.com"
-        val password = "incorrectPassword"
-        val expectedResponse = AuthResponse(isError = true, message = "Invalid credentials")
-
-        // Use the ArgumentCaptor to capture the callback passed to the login function
-        whenever(authRepository.login(email, password, {})).thenAnswer {
-            // Get the callback from the captured arguments
-            val completion = it.getArgument<((AuthResponse) -> Unit)>(2)
-            completion.invoke(expectedResponse)
-        }
-
-        // When
-        authRepository.login(email, password) { actualResponse ->
-            // Then
-            assertEquals(expectedResponse, actualResponse)
+        val password = "12345"
+        val expectedResponse = Result.Success(AuthResponse(isError = false, message = "Registration successful"))
+        runTest {
+            whenever(authRepository.register(email, password)).thenReturn(expectedResponse)
+            val response = authRepository.register(email, password)
+            assertEquals(expectedResponse, response)
         }
     }
 
     @Test
-    fun registerWithNewEmail() {
+    fun `When Register With Used Email Should Return Error`() {
         // Given
-        val email = "test@example.com"
-        val password = "password"
-        val expectedResponse = AuthResponse(isError = false, message = "Registration successful")
-        whenever(authRepository.register(email,password, {})).thenAnswer {
-            val completion = it.getArgument<((callback: AuthResponse) -> Unit)>(1)
-            completion.invoke(expectedResponse)
-        }
-
-        authRepository.register(email, password) {
-            assertEquals(expectedResponse, it)
-        }
-    }
-
-    @Test
-    fun registerWithUsedEmail() {
-        // Given
-        val email = "test@example.com"
-        val password = "password"
-        val expectedResponse = AuthResponse(isError = true, message = "Email Used")
-        whenever(authRepository.register(email,password, {})).thenAnswer {
-            val completion = it.getArgument<((callback: AuthResponse) -> Unit)>(1)
-            completion.invoke(expectedResponse)
-        }
-
-        authRepository.register(email, password) {
-            assertEquals(expectedResponse, it)
+        val usedEmail = "test@example.com"
+        val password = "12345"
+        val expectedResponse = Result.Error<AuthResponse>("Email Used")
+        runTest {
+            whenever(authRepository.register(usedEmail, password)).thenReturn(expectedResponse)
+            val response = authRepository.register(usedEmail, password)
+            assertEquals(expectedResponse, response)
         }
     }
 }
