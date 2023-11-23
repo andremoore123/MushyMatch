@@ -4,10 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import capstone.project.mushymatch.api.repository.ApiCallback
+import androidx.lifecycle.viewModelScope
 import capstone.project.mushymatch.api.repository.MushroomRepository
+import capstone.project.mushymatch.api.repository.Result
 import capstone.project.mushymatch.api.response.mushroom.DetailMushroomResponse
 import capstone.project.mushymatch.api.response.recipe.ListRecipesResponse
+import kotlinx.coroutines.launch
 
 class MushroomInformationViewModel(private val mushroomRepository: MushroomRepository) : ViewModel() {
 
@@ -18,18 +20,13 @@ class MushroomInformationViewModel(private val mushroomRepository: MushroomRepos
     val recipes: LiveData<ListRecipesResponse> = _recipes
 
     fun getMushroomDetail(mushroomId: Int) {
-        mushroomRepository.getMushroomDetail(mushroomId, object : ApiCallback<DetailMushroomResponse> {
-            override fun onSuccess(response: DetailMushroomResponse) {
-                _mushroomDetail.value = response
-
+        viewModelScope.launch {
+            when (val response = mushroomRepository.getMushroomDetail(mushroomId)) {
+                is Result.Success -> _mushroomDetail.value = response.response!!
+                is Result.Error -> {}
             }
-
-            override fun onError(errorMessage: String) {
-                // Tangani kesalahan pemanggilan API
-            }
-        })
+        }
     }
-
 }
 
 @Suppress("UNCHECKED_CAST")

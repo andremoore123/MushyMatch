@@ -4,24 +4,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import capstone.project.mushymatch.api.repository.ApiCallback
+import androidx.lifecycle.viewModelScope
 import capstone.project.mushymatch.api.repository.MushroomRepository
+import capstone.project.mushymatch.api.repository.Result
 import capstone.project.mushymatch.api.response.recipe.DetailRecipesResponse
+import kotlinx.coroutines.launch
 
 class CookingRecipesViewModel(private val mushroomRepository: MushroomRepository) : ViewModel() {
     private val _recipeDetail = MutableLiveData<DetailRecipesResponse>()
     val recipeDetail: LiveData<DetailRecipesResponse> = _recipeDetail
 
     fun loadRecipeDetail(recipeId: Int) {
-        mushroomRepository.getRecipeDetail(recipeId, object : ApiCallback<DetailRecipesResponse> {
-            override fun onSuccess(response: DetailRecipesResponse) {
-                _recipeDetail.value = response
+        viewModelScope.launch {
+            when (val response = mushroomRepository.getRecipeDetail(recipeId)) {
+                is Result.Error -> {}
+                is Result.Success ->  _recipeDetail.value = response.response!!
             }
-
-            override fun onError(errorMessage: String) {
-                // Tangani kesalahan jika diperlukan
-            }
-        })
+        }
     }
 }
 

@@ -5,10 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import capstone.project.mushymatch.api.ApiService
-import capstone.project.mushymatch.api.repository.ApiCallback
+import androidx.lifecycle.viewModelScope
 import capstone.project.mushymatch.api.repository.MushroomRepository
+import capstone.project.mushymatch.api.repository.Result
 import capstone.project.mushymatch.api.response.mushroom.GetMushroomResponseItem
+import kotlinx.coroutines.launch
 
 class MushroomViewModel(private val repository: MushroomRepository) : ViewModel() {
 
@@ -16,18 +17,15 @@ class MushroomViewModel(private val repository: MushroomRepository) : ViewModel(
     val mushrooms: LiveData<List<GetMushroomResponseItem>> = _mushrooms
 
     fun loadMushrooms() {
-        repository.getMushrooms(object : ApiCallback<List<GetMushroomResponseItem>> {
-            override fun onSuccess(response: List<GetMushroomResponseItem>) {
-                _mushrooms.value = response
+        viewModelScope.launch {
+                when (val response = repository.getMushrooms()) {
+                    is Result.Error ->  Log.e("MushroomViewModel", response.message)
+                    is Result.Success -> _mushrooms.value = response.response
+                }
             }
-
-            override fun onError(errorMessage: String) {
-                // Handle error
-                Log.e("MushroomViewModel", errorMessage)
-            }
-        })
+        }
     }
-}
+
 
 class MushroomViewModelFactory(private val repository: MushroomRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
