@@ -70,4 +70,13 @@ class AuthRepositoryTest {
             assertEquals(expectedResponse, response)
         }
     }
+    @Test
+    fun `When Logout Should Return Success`() {
+        val expectedResponse = Result.Success<Boolean>(true)
+        runTest {
+            whenever(authRepository.logout()).thenReturn(expectedResponse)
+            val response = authRepository.logout()
+            assertEquals(expectedResponse, response)
+        }
+    }
 }

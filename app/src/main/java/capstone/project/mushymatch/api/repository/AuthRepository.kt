@@ -1,9 +1,5 @@
 package capstone.project.mushymatch.api.repository
 
-import android.content.Intent
-import android.widget.Toast
-import capstone.project.mushymatch.view.home.HomePageActivity
-import capstone.project.mushymatch.view.login.loginActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.tasks.await
 
@@ -36,7 +32,26 @@ class AuthRepository : IAuthRepository {
         val errorMessage = e.message ?: "Unknown error"
         Result.Error(message = errorMessage)
     }
+
+    override suspend fun logout(): Result<Boolean> = try {
+        auth.signOut()
+        Result.Success(true)
+    } catch (e: Exception) {
+        Result.Error(e.message.toString())
+    }
+
+    override suspend fun getCurrentUserEmail(): Result<String>  = try {
+        val user = auth.currentUser ?: error("User Is Null")
+        val userEmail = user.email ?: error("User Is Null")
+        Result.Success(userEmail)
+    } catch (e: Exception) {
+        Result.Error(e.message.toString())
+    }
+
 }
 interface IAuthRepository {
     suspend fun login(username: String, password: String): Result<AuthResponse>
-    suspend fun register(email: String, password: String): Result<AuthResponse>}
+    suspend fun register(email: String, password: String): Result<AuthResponse>
+    suspend fun logout(): Result<Boolean>
+    suspend fun getCurrentUserEmail(): Result<String>
+}
