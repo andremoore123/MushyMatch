@@ -14,7 +14,7 @@ import com.google.firebase.ktx.initialize
 
 @Suppress("DEPRECATION")
 class SplashActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySplashBinding
+    lateinit var binding: ActivitySplashBinding
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
