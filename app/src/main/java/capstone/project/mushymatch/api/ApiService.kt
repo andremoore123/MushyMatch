@@ -12,19 +12,19 @@ import retrofit2.http.*
 
 interface ApiService {
     @GET("get-jamur")
-    fun getMushrooms(): Call<List<GetMushroomResponseItem>>
+    suspend fun getMushrooms(): List<GetMushroomResponseItem>
 
     @GET("jamur/{id_jamur}")
-    fun getMushroomDetail(@Path("id_jamur") id: Int): Call<DetailMushroomResponse>
+    suspend fun getMushroomDetail(@Path("id_jamur") id: Int): DetailMushroomResponse
 
     @GET("list-recipes/{id_jamur}")
-    fun getRecipes(@Path("id_jamur") id: Int): Call<List<ListRecipesResponseItem>>
+    suspend fun getRecipes(@Path("id_jamur") id: Int): List<ListRecipesResponseItem>
 
     @GET("recipes/{id_recipe}")
-    fun getRecipeDetail(@Path("id_recipe") id: Int): Call<DetailRecipesResponse>
+    suspend fun getRecipeDetail(@Path("id_recipe") id: Int): DetailRecipesResponse
 
     @Multipart
     @POST("predict/image")
-    fun predictImage(@Part image: MultipartBody.Part): Call<PredictImageResponse>
+    suspend fun predictImage(@Part image: MultipartBody.Part): PredictImageResponse
 
 }
