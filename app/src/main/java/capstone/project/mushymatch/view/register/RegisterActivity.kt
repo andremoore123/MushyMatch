@@ -15,7 +15,7 @@ import capstone.project.mushymatch.view.login.loginActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityRegisterBinding
+    lateinit var binding: ActivityRegisterBinding
     private lateinit var viewModel: RegisterViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
